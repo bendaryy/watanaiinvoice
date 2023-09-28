@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class manageDoucumentController extends Controller
 {
-    public $url1 = "https://id.eta.gov.eg";
-    public $url2 = "https://api.invoicing.eta.gov.eg";
+    public $url1 = "https://id.preprod.eta.gov.eg";
+    public $url2 = "https://api.preprod.invoicing.eta.gov.eg";
     // this is for show sent inovices
 
     public function allInvoices()
