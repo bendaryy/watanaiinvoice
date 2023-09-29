@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Route::post('/drafinvoice',[invoiceController::class,'store'])->middleware('auth');
-Route::apiResource('/draft',invoiceController::class)->middleware('auth');
+Route::apiResource('/draft',invoiceController::class)->middleware('authkey');
