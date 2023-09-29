@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\DraftInvoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class invoiceController extends Controller
 {
@@ -14,11 +15,24 @@ class invoiceController extends Controller
     }
     public function store(Request $request)
     {
-        $draft = DraftInvoice::create($request->only([
-            'tax_id', 'inv_id', 'jsondata',
-        ]));
+        // $draft = DraftInvoice::create($request->only([
+        //     'tax_id', 'inv_id', 'jsondata', 'user_id' => Auth::user()->id,
+        // ]));
 
-        return $draft;
+        // Create a new DraftInvoice record and associate it with the user's ID
+        $user = Auth::user();
+        $draftInvoice = new DraftInvoice([
+            'tax_id' => $user->details->company_id,
+            'inv_id' => $request->input('inv_id'),
+            'jsondata' => $request->input('jsondata'),
+            'phone' => $user->phone,
+            'user_id' => $user->id, // Associate the user's ID
+            // Other fields as needed
+        ]);
+
+        $draftInvoice->save();
+
+        return $draftInvoice;
 
     }
 }
