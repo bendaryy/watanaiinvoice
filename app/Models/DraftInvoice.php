@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DraftInvoice extends Model
 {
      protected $table = 'invoicedraft';
+     protected $guarded = [];
 
      protected $casts = [
         'jsondata' => 'json'

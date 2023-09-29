@@ -30,7 +30,7 @@
     <link rel="stylesheet"
         href="{{ asset('main/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('main/css/header-colors.css') }}" />
-    <link rel="icon" href="{{ asset('main/images/favicon-32x32.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('main/images/icons/surgery.png') }}" type="image/png">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @if (LaravelLocalization::getCurrentLocale() == 'en')
