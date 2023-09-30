@@ -88,5 +88,14 @@ class UserController extends Controller
                 'message' => $th->getMessage(),
             ], 500);
         }
+
+    }
+    public function logout(Request $request)
+    {
+        Auth::user()->tokens()->delete();
+
+        return [
+            'message' => 'you are logged out',
+        ];
     }
 }
