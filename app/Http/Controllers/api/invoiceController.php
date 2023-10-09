@@ -11,7 +11,8 @@ class invoiceController extends Controller
 {
     public function index()
     {
-        $draft = DraftInvoice::all();
+        $draft = DraftInvoice::where('user_id', auth()->user()->id)->get();
+        return $draft;
     }
     public function store(Request $request)
     {
