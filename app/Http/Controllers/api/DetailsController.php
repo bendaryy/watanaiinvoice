@@ -22,6 +22,7 @@ class DetailsController extends Controller
             'governate' => $request->governate,
             'regionCity' => $request->regionCity,
             'buildingNumber' => $request->buildingNumber,
+            'street' => $request->street,
             'issuerType' => "B",
             'user_id' => $user->id, // Associate the user's ID
             // Other fields as needed
