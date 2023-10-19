@@ -17,7 +17,7 @@ class DetailsController extends Controller
         $details = new Details([
             'client_id' => $request->client_id,
             'client_secret' => $request->client_secret,
-            'company' => $request->company,
+            'company_name' => $request->company,
             'company_id' => $request->company_id,
             'governate' => $request->governate,
             'regionCity' => $request->regionCity,
