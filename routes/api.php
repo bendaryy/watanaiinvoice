@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\DetailsController;
 use App\Http\Controllers\api\invoiceController;
 use App\Http\Controllers\api\UserController;
 use Illuminate\Http\Request;
@@ -25,4 +26,5 @@ Route::apiResource('/draft',invoiceController::class)->middleware('auth:sanctum'
 Route::post('/auth/register', [UserController::class, 'createUser']);
 Route::post('/auth/login', [UserController::class, 'loginUser']);
 Route::post('/auth/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('store/details',[DetailsController::class,'store'])->middleware('auth:sanctum');
 

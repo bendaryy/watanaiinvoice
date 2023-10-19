@@ -36,4 +36,14 @@ class invoiceController extends Controller
         return $draftInvoice;
 
     }
+
+    public function show($id)
+    {
+        $invoice = DraftInvoice::findOrFail($id);
+        if ($invoice->user_id === auth()->user()->id) {
+            return $invoice;
+        } else {
+            return response(['message' => "unauthorized"], 403);
+        }
+    }
 }

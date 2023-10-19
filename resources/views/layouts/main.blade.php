@@ -52,15 +52,21 @@
 
 
                 <div>
-                    @if (LaravelLocalization::getCurrentLocale() == 'en')
+                    {{-- @if (LaravelLocalization::getCurrentLocale() == 'en') --}}
+                    @if(isset(auth()->user()->details->company_name))
                         <a href="{{ url('/') }}">
                             <h4 class="logo-text">{{ auth()->user()->details->company_name }}</h4>
                         </a>
-                    @else
+                        @else
                         <a href="{{ url('/') }}">
-                            <h4 class="logo-text">{{ auth()->user()->details->company_name }}</h4>
+                            <h4 class="logo-text">لا توجد بيانات شركة</h4>
                         </a>
                     @endif
+                    {{-- @else
+                        <a href="{{ url('/') }}">
+                            <h4 class="logo-text">{{ auth()->user()->details->company_name }}</h4>
+                        </a>
+                    @endif --}}
 
                 </div>
 
@@ -393,7 +399,11 @@
         <!--End Back To Top Button-->
         <footer class="page-footer">
             <p class="mb-0">Copyright ©  <a href="" target=".blank">
-                   {{ auth()->user()->details->company_name}}
+                @if(isset(auth()->user()->details->company_name))
+                {{ auth()->user()->details->company_name}}
+                    @else
+                    لا توجد بيانات شركة
+                @endif
                 </a></p>
         </footer>
     </div>
