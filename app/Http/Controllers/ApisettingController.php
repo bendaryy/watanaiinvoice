@@ -10,7 +10,7 @@ class ApisettingController extends Controller
 
     public function index()
     {
-        $setting = Details::where('user_id',auth()->user()->id);
+        $setting = Details::where('user_id', auth()->user()->id);
 
         return view('apisetting.index', compact('setting'));
     }
