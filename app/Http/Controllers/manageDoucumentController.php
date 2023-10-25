@@ -667,20 +667,8 @@ class manageDoucumentController extends Controller
         // End Bank payment
 
         $trnsformed = json_encode($invoice, JSON_UNESCAPED_UNICODE);
-
-        // return $trnsformed;
-        // $myFileToJson = fopen('C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
-        // fwrite($myFileToJson, $trnsformed);
-
-
-        // $path = 'C:\laragon\www\stroker\EInvoicing/SourceDocumentJson.json';
-        // $jsonfile = file_get_contents($path);
-
-        $tokenName = 'Egypt Trust';
-        $invoice = Http::withBody($trnsformed, "application/json")->post("http://localhost:5111/api/signdoc?TokenName=$tokenName&&TokenPin=93069045");
-        return $invoice;
-
-
+        $myFileToJson = fopen('C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
+        fwrite($myFileToJson, $trnsformed);
         return redirect()->route('cer');
 
     }
@@ -1033,7 +1021,7 @@ class manageDoucumentController extends Controller
 
 // this function for signature
 
-    public function openBat2()
+    public function openBat()
     {
 
         shell_exec('C:\laragon\www\stroker\EInvoicing/SubmitInvoices2.bat');
@@ -1097,15 +1085,6 @@ class manageDoucumentController extends Controller
             }
 
         }
-    }
-    public function openBat()
-    {
-        $path = 'C:\laragon\www\stroker\EInvoicing/SourceDocumentJson.json';
-        $jsonfile = file_get_contents($path);
-
-        $tokenName = 'Egypt Trust';
-        $invoice = Http::withBody($jsonfile, "application/json")->post("http://localhost:5111/api/signdoc?TokenName=$tokenName&&TokenPin=93069045");
-        return $invoice;
     }
 
 // this is for create page of invoice
