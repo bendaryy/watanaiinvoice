@@ -45,8 +45,8 @@
 
                             <tr>
                                 <td>
-                                    @if (isset($setting->company_name))
-                                        {{ $setting->company_name }}
+                                    @if (isset($setting[0]['company_name']))
+                                        {{ $setting[0]['company_name'] }}
                                     @endif
                                 </td>
                                 <td>
