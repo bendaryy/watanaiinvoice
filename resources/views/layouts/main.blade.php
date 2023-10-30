@@ -38,26 +38,7 @@
     @endif
     @stack('css')
     <title>{{ config('app.name', 'E_TAX') }}</title>
-    <style>
-        .language-selection {
-            list-style: none;
-            padding: 0;
-            display: flex;
-        }
 
-        .language-selection li {
-            margin-right: 10px;
-        }
-
-        .language-selection a {
-            text-decoration: none;
-            color: white;
-        }
-
-        .language-selection a:hover {
-            color: #007bff;
-        }
-    </style>
 </head>
 
 <body>

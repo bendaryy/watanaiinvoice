@@ -31,7 +31,37 @@
 
  <body>
      <!--wrapper-->
+      <ul class="navbar-nav align-items-center">
+
+                            <li class="nav-item dropdown dropdown-large">
+                                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{ asset('main/flags/' . LaravelLocalization::getCurrentLocale() . '.svg') }}"
+                                        width="30">
+                                    {{ LaravelLocalization::getCurrentLocaleName() }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end">
+
+                                    <ul class="locales">
+                                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                            <li>
+                                                <a rel="alternate" hreflang="{{ $localeCode }}"
+                                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                    <img src="{{ asset('main/flags/' . $localeCode . '.svg') }}"
+                                                        width="22px">
+                                                    {{ $properties['native'] }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+
+
+                        </ul>
      <div class="wrapper">
+
          <div class="authentication-header"></div>
          <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
              <div class="container-fluid">
