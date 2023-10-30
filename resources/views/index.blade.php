@@ -2,6 +2,9 @@
 
 
 @section('content')
+{{-- {{ LaravelLocalization::getCurrentLocale() }} --}}
+
+
     <div class="page-content">
         <div class="row row-cols-1 row-cols-lg-3">
             <div class="col">
@@ -10,7 +13,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
-                                <p class="mb-0">الإرسالات</p>
+                                <p class="mb-0">@lang('site.Saved documents sent')</p>
                                 <h4 class="font-weight-bold">
 
                                 </h4>

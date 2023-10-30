@@ -38,6 +38,26 @@
     @endif
     @stack('css')
     <title>{{ config('app.name', 'E_TAX') }}</title>
+    <style>
+        .language-selection {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .language-selection li {
+            margin-right: 10px;
+        }
+
+        .language-selection a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .language-selection a:hover {
+            color: #007bff;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,11 +73,11 @@
 
                 <div>
                     {{-- @if (LaravelLocalization::getCurrentLocale() == 'en') --}}
-                    @if(isset(auth()->user()->details->company_name))
+                    @if (isset(auth()->user()->details->company_name))
                         <a href="{{ url('/') }}">
                             <h4 class="logo-text">{{ auth()->user()->details->company_name }}</h4>
                         </a>
-                        @else
+                    @else
                         <a href="{{ url('/') }}">
                             <h4 class="logo-text">لا توجد بيانات شركة</h4>
                         </a>
@@ -122,7 +142,7 @@
                         <div class="menu-title">@lang('site.documents')</div>
                     </a>
                     <ul>
-                        <li> <a href="{{ route("searchAll") }}">
+                        <li> <a href="{{ route('searchAll') }}">
                                 <i class="bx bx-right-arrow-alt"></i>بحث فى جميع الفواتير</a>
                         </li>
                         <li> <a href="{{ route('sentInvoices', '1') }}">
@@ -308,7 +328,7 @@
                         <i class="fadeIn animated bx bx-wifi-off" style="font-size: 30px;color: #d71919;"></i>
                     </div> --}}
                     <div class="top-menu ms-auto">
-                        {{-- <ul class="navbar-nav align-items-center">
+                        <ul class="navbar-nav align-items-center">
 
                             <li class="nav-item dropdown dropdown-large">
                                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
@@ -336,6 +356,20 @@
                             </li>
 
 
+                        </ul>
+                        {{-- <ul>
+                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <ul class="language-selection">
+
+                                    <li><a rel="alternate" hreflang="{{ $localeCode }}"
+                                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            @if (LaravelLocalization::getCurrentLocale() == 'ar')
+                                                {{ $properties['native'] }}
+                                            @endif
+                                        </a></li>
+                                </ul>
+                            @endforeach
+
                         </ul> --}}
                     </div>
                     <div class="user-box dropdown">
@@ -354,7 +388,7 @@
                                         @lang('site.profile')</span></a>
                             </li>
 
-                              <li>
+                            <li>
                                 <div class="dropdown-divider mb-0"></div>
                             </li>
                             <li><a class="dropdown-item" href="{{ route('updatemypassword') }}"><i
@@ -398,12 +432,12 @@
                 class='bx bxs-up-arrow-alt'></i></a>
         <!--End Back To Top Button-->
         <footer class="page-footer">
-            <p class="mb-0">Copyright ©  <a href="" target=".blank">
-                @if(isset(auth()->user()->details->company_name))
-                {{ auth()->user()->details->company_name}}
+            <p class="mb-0">Copyright © <a href="" target=".blank">
+                    @if (isset(auth()->user()->details->company_name))
+                        {{ auth()->user()->details->company_name }}
                     @else
-                    لا توجد بيانات شركة
-                @endif
+                        لا توجد بيانات شركة
+                    @endif
                 </a></p>
         </footer>
     </div>

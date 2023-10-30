@@ -279,7 +279,7 @@ return [
     'Date&Time' => 'Date&Time',
     'Notification Status' => 'Notification Status',
     'Notification address' => 'Notification Address',
-    '' => '',
+    'Saved documents sent' => 'Saved documents sent',
     '' => '',
     '' => '',
     '' => '',

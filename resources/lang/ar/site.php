@@ -360,7 +360,7 @@ return [
     'Date&Time' => 'تاريخ والوقت',
     'Notification Status' => 'حالة الاشعار',
     'Notification address' => 'الاشعار',
-    '' => '',
+    'Saved documents sent' => 'الوثائق المحفوظة المرسلة',
     '' => '',
     '' => '',
     '' => '',

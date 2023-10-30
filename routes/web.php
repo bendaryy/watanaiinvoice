@@ -18,11 +18,11 @@ use App\Http\Controllers\RemoteController as remote;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::group(
-    [
-        'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
-    ], function () {
+// Route::group(
+//     [
+//         'prefix' => LaravelLocalization::setLocale(),
+//         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
+//     ], function () {
 
         Auth::routes(['register' => false]);
 
@@ -174,24 +174,24 @@ Route::group(
 
         });
 
-    });
+        Route::get('getcompany/{id}', [CustomerController::class, 'getCompany'])->name('getCompany')->middleware('auth');
+
+        // Remote Server
+        Route::get('updatestatus', [remote::class, 'updatestatus'])->name('updatestatus')->middleware('auth');
+
+        // draft
+        route::post('draft', [manageDoucumentController::class, 'draft'])->name('draft')->middleware('auth');
+        route::post('draftDollar', [manageDoucumentController::class, 'draftDollar'])->name('draftDollar')->middleware('auth');
+        route::get('alldraft', [manageDoucumentController::class, 'showDraft'])->name('showDraft')->middleware('auth');
+        route::post('sendDraft/{id}', [manageDoucumentController::class, 'sendDraftData'])->name('sendDraftData')->middleware('auth');
+        route::get('showdetalils/{id}', [manageDoucumentController::class, 'showDraftDetails'])->name('showDraftDetails')->middleware('auth');
+        route::delete('deletedraft/{id}', [manageDoucumentController::class, 'deleteDraft'])->name('deleteDraft')->middleware('auth');
+
+        //sent
+        route::get('sentofdraft', [manageDoucumentController::class, 'SentInvoicesFromDraft'])->name('sentofdraft')->middleware('auth');
+        route::get('searchInSentInv', [manageDoucumentController::class, 'searchInSentInv'])->name('searchInSentInv')->middleware('auth');
+        route::get('showsentdetails/{uuid}', [manageDoucumentController::class, 'showSentInvDetails'])->name('showsentdetails')->middleware('auth');
+        route::delete('deletesent/{id}', [manageDoucumentController::class, 'deleteSentInv'])->name('deleteSentInv')->middleware('auth');
+    // });
 
 // get company api
-Route::get('getcompany/{id}', [CustomerController::class, 'getCompany'])->name('getCompany')->middleware('auth');
-
-// Remote Server
-Route::get('updatestatus', [remote::class, 'updatestatus'])->name('updatestatus')->middleware('auth');
-
-// draft
-route::post('draft', [manageDoucumentController::class, 'draft'])->name('draft')->middleware('auth');
-route::post('draftDollar', [manageDoucumentController::class, 'draftDollar'])->name('draftDollar')->middleware('auth');
-route::get('alldraft', [manageDoucumentController::class, 'showDraft'])->name('showDraft')->middleware('auth');
-route::post('sendDraft/{id}', [manageDoucumentController::class, 'sendDraftData'])->name('sendDraftData')->middleware('auth');
-route::get('showdetalils/{id}', [manageDoucumentController::class, 'showDraftDetails'])->name('showDraftDetails')->middleware('auth');
-route::delete('deletedraft/{id}', [manageDoucumentController::class, 'deleteDraft'])->name('deleteDraft')->middleware('auth');
-
-//sent
-route::get('sentofdraft', [manageDoucumentController::class, 'SentInvoicesFromDraft'])->name('sentofdraft')->middleware('auth');
-route::get('searchInSentInv', [manageDoucumentController::class, 'searchInSentInv'])->name('searchInSentInv')->middleware('auth');
-route::get('showsentdetails/{uuid}', [manageDoucumentController::class, 'showSentInvDetails'])->name('showsentdetails')->middleware('auth');
-route::delete('deletesent/{id}', [manageDoucumentController::class, 'deleteSentInv'])->name('deleteSentInv')->middleware('auth');
