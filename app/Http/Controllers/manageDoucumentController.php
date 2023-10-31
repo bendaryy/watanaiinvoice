@@ -11,8 +11,16 @@ use Illuminate\Support\Facades\Redirect;
 
 class manageDoucumentController extends Controller
 {
-    public $url1 = "https://id.preprod.eta.gov.eg";
-    public $url2 = "https://api.preprod.invoicing.eta.gov.eg";
+    public $url1;
+    public $url2;
+
+     public function __construct()
+    {
+        $this->url1 = env('URL1');
+        $this->url2 = env('URL2');
+    }
+
+    // $this->$url1 = env("URI1")
     // this is for show sent inovices
 
     public function allInvoices()

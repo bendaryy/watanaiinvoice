@@ -148,16 +148,17 @@
                     <a href="javascript:;">
                         <div class="parent-icon"><i class="fadeIn animated bx bx-file"></i>
                         </div>
-                        <div class="menu-title">الإرسالات و المسودات</div>
+                        <div class="menu-title">@lang('site.sentsAndDrafts')</div>
                     </a>
                     <ul>
 
                         <li>
-                            <a href="{{ route('showDraft') }}"><i class="bx bx-right-arrow-alt"></i>عرض المسودات</a>
+                            <a href="{{ route('showDraft') }}"><i
+                                    class="bx bx-right-arrow-alt"></i>@lang('site.drafts')</a>
                         </li>
                         <li>
-                            <a href="{{ route('sentofdraft') }}"><i class="bx bx-right-arrow-alt"></i>عرض
-                                الإرسالات</a>
+                            <a href="{{ route('sentofdraft') }}"><i class="bx bx-right-arrow-alt"></i>
+                                @lang('site.Saved documents sent')</a>
                         </li>
 
                     </ul>
@@ -312,8 +313,8 @@
                         <ul class="navbar-nav align-items-center">
 
                             <li class="nav-item dropdown dropdown-large">
-                                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="{{ asset('main/flags/' . LaravelLocalization::getCurrentLocale() . '.svg') }}"
                                         width="30">
                                     {{ LaravelLocalization::getCurrentLocaleName() }}
@@ -374,7 +375,7 @@
                             </li>
                             <li><a class="dropdown-item" href="{{ route('updatemypassword') }}"><i
                                         class="bx bx-user"></i><span>
-                                        تغيير الرقم السرى</span></a>
+                                        @lang('site.update password')</span></a>
                             </li>
 
                             <li>
@@ -413,13 +414,15 @@
                 class='bx bxs-up-arrow-alt'></i></a>
         <!--End Back To Top Button-->
         <footer class="page-footer">
-            <p class="mb-0">Copyright © <a href="" target=".blank">
-                    @if (isset(auth()->user()->details->company_name))
+            <p class="mb-0">Copyright © <a href="https://watan.ai" target=".blank">
+                    {{-- @if (isset(auth()->user()->details->company_name))
                         {{ auth()->user()->details->company_name }}
                     @else
                         لا توجد بيانات شركة
-                    @endif
-                </a></p>
+                    @endif --}}
+                    Watan.ai
+
+                </a>{{ date('Y') }}</p>
         </footer>
     </div>
     @if (session()->has('modal'))

@@ -10,8 +10,8 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item">
                             <a href="{{ url('/') }}"><i class="bx bx-home-alt"></i> @lang('site.dashboard') </a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page"> تغيير الرقم السرى</li>
+                        </li> &nbsp;
+                        <li class="breadcrumb-item active" aria-current="page"> @lang('site.update password') </li>
                     </ol>
                 </nav>
             </div>
@@ -31,7 +31,7 @@
 
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">الرقم السرى الحالى</h6>
+                                            <h6 class="mb-0">@lang('site.current password')</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <input type="password" name="old_password" class="form-control" required />
@@ -42,7 +42,7 @@
 
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">الرقم السرى الجديد</h6>
+                                            <h6 class="mb-0">@lang('site.new password')</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <input type="password" name="new_password" class="form-control" required />
@@ -51,7 +51,7 @@
 
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">تأكيد الرقم السرى</h6>
+                                            <h6 class="mb-0">@lang('site.password confirmation')</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <input type="password" name="confirm_password" class="form-control" required />
@@ -61,10 +61,10 @@
 
 
 
-                                    <div class="row">
+                                    <div class="row" style="text-align: center">
                                         <div class="col-sm-3"></div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="submit" class="btn btn-primary px-4" value="تعديل" />
+                                            <input type="submit" class="btn btn-primary px-4" value="@lang('site.edit')" />
                                         </div>
                                     </div>
                                 </form>
