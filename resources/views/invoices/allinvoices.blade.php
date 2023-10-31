@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 p-0">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">@lang('site.sent_documents')</li>
+                            <li class="breadcrumb-item active" aria-current="page">@lang('site.Results of search')</li>
                         </ol>
                     </nav>
                 </div>
@@ -49,14 +49,14 @@
                         <table id="example2" class="table table-striped table-bordered text-center">
                             <thead>
                                 <tr>
-                                    <th>الرقم الداخلى للفاتورة</th>
-                                    <th>اسم مُستقبل الفاتورة</th>
-                                    <th>اسم مُرسل الفاتورة</th>
-                                    <th>نوع الفاتورة</th>
-                                    <th>حالة الفاتورة</th>
-                                    <th>إجمالى الفاتورة</th>
-                                    <th>تاريخ إصدار الفاتورة </th>
-                                    <th>الرقم الإلكترونى </th>
+                                    <th>@lang('site.internalid')</th>
+                                    <th>@lang('site.Receiver Name')</th>
+                                    <th>@lang('site.Issuer Name')</th>
+                                    <th>@lang('site.Type of Document')</th>
+                                    <th>@lang('site.invoice status')</th>
+                                    <th>@lang('site.Total')</th>
+                                    <th>@lang('site.dateTimeIssued')</th>
+                                    <th>@lang('site.uuid')</th>
                                     <th>@lang('site.doc_view')</th>
                                     <th>@lang('site.doc_Download')</th>
                                 </tr>

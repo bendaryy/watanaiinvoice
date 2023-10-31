@@ -124,7 +124,7 @@
                     </a>
                     <ul>
                         <li> <a href="{{ route('searchAll') }}">
-                                <i class="bx bx-right-arrow-alt"></i>بحث فى جميع الفواتير</a>
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.search in all invoices')</a>
                         </li>
                         <li> <a href="{{ route('sentInvoices', '1') }}">
                                 <i class="bx bx-right-arrow-alt"></i>@lang('site.sent_documents')</a>
@@ -133,10 +133,10 @@
                                 <i class="bx bx-right-arrow-alt"></i>@lang('site.received_documents')</a>
                         </li>
                         <li> <a href="{{ route('createInvoice') }}">
-                                <i class="bx bx-right-arrow-alt"></i>اضافة وثيقة جديدة</a>
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.add new invoice')</a>
                         </li>
                         <li> <a href="{{ route('createInvoiceDollar') }}">
-                                <i class="bx bx-right-arrow-alt"></i>اضافة وثيقة بالعملة الأجنبية</a>
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Foreign currency')</a>
                         </li>
                     </ul>
                 </li>
@@ -173,20 +173,20 @@
                     <a href="javascript:;">
                         <div class="parent-icon"><i class="fadeIn animated bx bx-file"></i>
                         </div>
-                        <div class="menu-title">حالات الوثائق من خلالنا</div>
+                        <div class="menu-title">@lang('site.Document cases through us')</div>
                     </a>
                     <ul>
                         <li> <a href="{{ route('RequestCancell', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم تقديم طلب لإلغائها</a>
-                        </li>
-                        <li> <a href="{{ route('allCancell', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم إلغائها</a>
-                        </li>
-                        <li> <a href="{{ route('allRejected', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم رفضها</a>
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Request for canceled')</a>
                         </li>
                         <li> <a href="{{ route('requestRejected', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم تقديم طلب لرفضها</a>
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Request for rejected')</a>
+                        </li>
+                        <li> <a href="{{ route('allCancell', '1') }}">
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Canceled')</a>
+                        </li>
+                        <li> <a href="{{ route('allRejected', '1') }}">
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Rejected')</a>
                         </li>
 
                     </ul>
@@ -201,20 +201,20 @@
                     <a href="javascript:;">
                         <div class="parent-icon"><i class="fadeIn animated bx bx-file"></i>
                         </div>
-                        <div class="menu-title">حالات الوثائق من خلال العملاء</div>
+                        <div class="menu-title">@lang('site.Document cases through Customers')</div>
                     </a>
                     <ul>
                         <li> <a href="{{ route('CompaniesRequestCancell', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم تقديم طلب لإلغائها</a>
-                        </li>
-                        <li> <a href="{{ route('companyAllCancell', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم الغائها</a>
-                        </li>
-                        <li> <a href="{{ route('companyRejected', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم رفضها</a>
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Request for canceled')</a>
                         </li>
                         <li> <a href="{{ route('requestCompanyRejected', '1') }}">
-                                <i class="bx bx-right-arrow-alt"></i>تم تقديم طلب لرفضها</a>
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Request for rejected')</a>
+                        </li>
+                        <li> <a href="{{ route('companyAllCancell', '1') }}">
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Canceled')</a>
+                        </li>
+                        <li> <a href="{{ route('companyRejected', '1') }}">
+                                <i class="bx bx-right-arrow-alt"></i>@lang('site.Rejected')</a>
                         </li>
 
                     </ul>
