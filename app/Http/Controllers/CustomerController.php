@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -16,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = DB::table('companies2')->latest()->get();
+        $customers = Customer::latest()->get();
 
         return view('customer.index', compact('customers'));
     }
@@ -33,8 +32,9 @@ class CustomerController extends Controller
         return view('customer.create', compact('countries'));
     }
 
-    public function getCompany($id){
-        $company = DB::table('companies2')->where('id',$id)->first();
+    public function getCompany($id)
+    {
+        $company = Customer::where('id', $id)->first();
         return $company;
     }
 
@@ -57,7 +57,7 @@ class CustomerController extends Controller
             'buildingNumber' => 'required',
         ]);
 
-        Customer::create(array_merge($request->all(), ['user_taxid' => auth()->user()->details->company_id]));
+        Customer::create(array_merge($request->all(), ['user_taxid' => auth()->user()->details->company_id, 'user_id' => auth()->user()->id]));
 
         session()->flash('message', 'Created Successfully');
 
@@ -70,11 +70,6 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *

@@ -19,6 +19,7 @@ class UserController extends Controller
                 [
                     'name' => 'required',
                     'email' => 'required|email|unique:users,email',
+                    'phone' => 'required|unique:users,phone',
                     'password' => 'required',
                 ]);
 
@@ -34,6 +35,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                "phone" => $request->phone,
             ]);
 
             return response()->json([
@@ -97,5 +99,12 @@ class UserController extends Controller
         return [
             'message' => 'you are logged out',
         ];
+    }
+
+    public function getUserByPhoneNumber(Request $request){
+        // $users=DB::table('users')->select('name','phone_no')->get();
+        $userPhone = $request->phone;
+        $user = User::where('phone',$userPhone)->get();
+        return $user->load('details');
     }
 }
