@@ -79,6 +79,7 @@ class DetailsController extends Controller
             'regionCity' => 'required',
             'buildingNumber' => 'required',
             'street' => 'required',
+            "industry" => 'required',
             'user_id' => [
                 'required',
                 Rule::unique('details', 'user_id'),
@@ -93,6 +94,7 @@ class DetailsController extends Controller
         $regionCity = $request->input('regionCity');
         $buildingNumber = $request->input('buildingNumber');
         $street = $request->input('street');
+        $industry = $request->input('industry');
         $issuerType = "B";
         $user_id = $request->input('user_id');
 
@@ -109,7 +111,7 @@ class DetailsController extends Controller
         //     'user_id' => $user->id, // Associate the user's ID
         //     // Other fields as needed
         // ]);
-        $validator = validator(compact('company_name', 'client_id', 'client_secret', 'company_id', 'governate', 'regionCity', 'buildingNumber', 'street', 'user_id'), $rules);
+        $validator = validator(compact('company_name', 'client_id', 'client_secret', 'company_id', 'governate', 'regionCity', 'buildingNumber', 'street', 'user_id','industry'), $rules);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
