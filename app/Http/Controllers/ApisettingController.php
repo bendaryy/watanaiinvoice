@@ -16,6 +16,40 @@ class ApisettingController extends Controller
         return view('apisetting.index', compact('setting'));
     }
 
+    public function create(){
+        return view ('apisetting.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+
+            'client_id' => 'required',
+            'client_secret' => 'required',
+            'company_id' => 'required',
+            'company_name' => 'required',
+            'governate' => 'required',
+            'regionCity' => 'required',
+            'street' => 'required',
+            'buildingNumber' => 'required',
+            // 'issuerType' => 'required',
+        ]);
+
+        $data = $request->all();
+        $setting = new Details;
+        $setting->issuerType = "B";
+        $setting->user_id = auth()->user()->id;
+
+
+        $setting->fill($data);
+        $setting->save();
+
+        session()->flash('message', 'created Successfully');
+
+        return redirect('setting');
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -24,9 +58,16 @@ class ApisettingController extends Controller
      */
     public function edit($id)
     {
-        $setting = Details::first();
+        $setting = Details::findOrFail($id);
+        // $setting = Details::first();
+        if ($setting['user_id'] === auth()->user()->id) {
+            // return $apiSetting;
+            return view('apisetting.edit', compact('setting'));
 
-        return view('apisetting.edit', compact('setting'));
+        } else {
+            return abort(403);
+        }
+
     }
 
     /**
@@ -36,6 +77,7 @@ class ApisettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
 
@@ -49,10 +91,10 @@ class ApisettingController extends Controller
             'regionCity' => 'required',
             'street' => 'required',
             'buildingNumber' => 'required',
-            'issuerType' => 'required',
+            // 'issuerType' => 'required',
         ]);
 
-        $setting = Details::first();
+        $setting = Details::findOrFail($id);
 
         $setting->update($request->all());
 

@@ -123,8 +123,6 @@ class DetailsController extends Controller
         $model->fill($data);
         $model->save(); //
 
-        $model->save();
-
         return $model;
 
     }

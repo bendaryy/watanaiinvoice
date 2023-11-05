@@ -15,13 +15,13 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    @if (isset($setting->id))
-                        <a href="{{ route('setting.edit', $setting->id) }}" class="btn btn-outline-success px-5 radius-30">
+                     @if (isset($setting[0]['id']))
+                        <a href="{{ route('setting.edit', $setting[0]['id']) }}" class="btn btn-outline-success px-5 radius-30">
                             <i class="bx bx-message-square-edit mr-1"></i>@lang('site.edit') </a>
                     @else
-                        <a href="#" class="btn btn-outline-success px-5 radius-30">
-                            <i class="bx bx-message-square-edit mr-1"></i>إضافة</a>
-                    @endif
+                        <a href="{{ route('setting.create') }}" class="btn btn-outline-success px-5 radius-30">
+                            <i class="bx bx-message-square-edit mr-1"></i>@lang('site.Add')</a>
+                     @endif
 
                 </div>
             </div>
@@ -38,7 +38,7 @@
                                 <th>@lang('site.client_id') </th>
                                 <th>@lang('site.secret_id') </th>
                                 <th>@lang('site.commerial_num') </th>
-                                <th>@lang('site.control')</th>
+                                {{-- <th>@lang('site.control')</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -50,27 +50,27 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if (isset($setting->client_id))
-                                        {{ $setting->client_id }}
+                                    @if (isset($setting[0]['client_id']))
+                                        {{ $setting[0]['client_id'] }}
                                     @endif
                                 </td>
                                 <td>
-                                    @if (isset($setting->client_secret))
-                                        {{ $setting->client_secret }}
+                                   @if (isset($setting[0]['client_secret']))
+                                        {{ $setting[0]['client_secret'] }}
                                     @endif
                                 </td>
                                 <td>
-                                    @if (isset($setting->company_id))
-                                        {{ $setting->company_id }}
+                                  @if (isset($setting[0]['company_id']))
+                                        {{ $setting[0]['company_id'] }}
                                     @endif
                                 </td>
 
-                                <td>
-                                    @if (isset($setting->id))
+                                {{-- <td>
+                                    @if (isset($setting[0]['id']))
                                         <a class="btn btn-info"
-                                            href="{{ route('setting.edit', $setting->id) }}">@lang('site.edit') </a>
+                                            href="{{ route('setting.edit', $setting[0]['id']) }}">@lang('site.edit') </a>
                                     @endif
-                                </td>
+                                </td> --}}
                             </tr>
 
                         </tbody>
@@ -80,7 +80,7 @@
                                 <th>@lang('site.client_id') </th>
                                 <th>@lang('site.secret_id') </th>
                                 <th>@lang('site.commerial_num') </th>
-                                <th>@lang('site.control')</th>
+                                {{-- <th>@lang('site.control')</th> --}}
                             </tr>
                         </tfoot>
                     </table>

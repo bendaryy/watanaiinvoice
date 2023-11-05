@@ -38,55 +38,53 @@
                     </div>
                     <hr>
 
-                    <form class="row g-3" method="post" action="{{ route('setting.update', $setting->id) }}">
+                    <form class="row g-3" method="post" action="{{ route('setting.store') }}">
                         @csrf
-                         @method('PUT')
+
 
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">@lang("site.name")</label>
-                            <input type="text" required class="form-control" id="inputEmail" name="company_name"
-                                value="{{ $setting->company_name }}">
+                            <input type="text" required class="form-control" id="inputEmail" name="company_name">
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">@lang("site.governate")</label>
-                            <input type="text" required class="form-control" id="inputEmail" name="governate"
-                                value="{{ $setting->governate }}">
+                            <input type="text" required class="form-control" id="inputEmail" name="governate">
                         </div>
 
                         <div class="col-md-6">
                             <label for="inputFirstName" class="form-label">@lang("site.client_id")</label>
-                            <input type="text" required class="form-control" id="inputFirstName" name="client_id" value="{{ $setting->client_id }}">
+                            <input type="text" required class="form-control" id="inputFirstName" name="client_id" >
                         </div>
 
                         <div class="col-md-6">
                             <label for="inputLastName" class="form-label">@lang("site.secret_id")</label>
-                            <input type="text" class="form-control" id="inputLastName" name="client_secret" value="{{ $setting->client_secret }}">
+                            <input type="text" class="form-control" id="inputLastName" name="client_secret">
                         </div>
 
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">@lang("site.commerial_num")</label>
-                            <input type="text" required class="form-control" id="inputEmail" name="company_id" value="{{ $setting->company_id }}">
+                            <input type="text" required class="form-control" id="inputEmail" name="company_id">
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">@lang('site.regionCity')</label>
-                            <input type="text" required class="form-control" id="inputEmail" name="regionCity" value="{{ $setting->regionCity }}">
+                            <input type="text" required class="form-control" id="inputEmail" name="regionCity">
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">@lang('site.street')</label>
-                            <input type="text" required class="form-control" id="inputEmail" name="street" value="{{ $setting->street }}">
+                            <input type="text" required class="form-control" id="inputEmail" name="street">
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">@lang('site.buildingNumber')</label>
-                            <input type="text" required class="form-control" id="inputEmail" name="buildingNumber" value="{{ $setting->buildingNumber }}">
+                            <input type="text" required class="form-control" id="inputEmail" name="buildingNumber">
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">@lang('site.industry')</label>
-                            <input type="text" required class="form-control" id="inputEmail" name="industry" value="{{ $setting->industry }}">
+                            <input type="text" required class="form-control" id="inputEmail" name="industry">
                         </div>
 
 
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary px-5">@lang('site.edit')</button>
+                            <button type="submit" class="btn btn-primary px-5">@lang('site.save')</button>
                         </div>
                     </form>
                 </div>
