@@ -36,6 +36,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 "phone" => $request->phone,
+                "preferred_lang" => $request->preferred_lang,
             ]);
 
             return response()->json([
@@ -101,10 +102,11 @@ class UserController extends Controller
         ];
     }
 
-    public function getUserByPhoneNumber(Request $request){
+    public function getUserByPhoneNumber(Request $request)
+    {
         // $users=DB::table('users')->select('name','phone_no')->get();
         $userPhone = $request->phone;
-        $user = User::where('phone',$userPhone)->get();
+        $user = User::where('phone', $userPhone)->get();
         return $user->load('details');
     }
 }

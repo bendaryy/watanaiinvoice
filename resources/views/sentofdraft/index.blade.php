@@ -4,7 +4,7 @@
     <div class="page-content">
 
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">الإرسالات</div>
+            <div class="breadcrumb-title pe-3">@lang('site.Saved documents sent')</div>
 
 
         </div>
@@ -14,7 +14,7 @@
 
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                 aria-expanded="false" aria-controls="collapseExample">
-                بحــث متقــدم
+                @lang('site.Advanced Search')
             </button>
         </p>
 
@@ -23,20 +23,20 @@
                 <form action="{{ route('searchInSentInv') }}">
                     <div class="row">
                         <div class="mb-3 col-3">
-                            <label for="exampleInputEmail1" class="form-label">بحث حر </label>
+                            <label for="exampleInputEmail1" class="form-label">@lang('site.Free Search')</label>
                             <input type="text"  name="freetext" class="form-control">
                         </div>
                         <div class="mb-3 col-3">
-                            <label for="exampleInputPassword1" class="form-label">التاريخ من</label>
+                            <label for="exampleInputPassword1" class="form-label">@lang('site.Date From')</label>
                             <input type="date"  name="datefrom" class="form-control">
                         </div>
                         <div class="mb-3 col-3">
-                            <label for="exampleInputPassword1" class="form-label">التاريخ الى</label>
+                            <label for="exampleInputPassword1" class="form-label">@lang('site.Date To')</label>
                             <input type="date"  name="dateto" class="form-control">
                         </div>
                         <div class="col-12" style="text-align: center;margin:20px">
 
-                            <button type="submit" class="btn btn-primary" style="width: 200px">بحـــث</button>
+                            <button type="submit" class="btn btn-primary" style="width: 200px">@lang('site.Search')</button>
                         </div>
                     </div>
                 </form>

@@ -72,14 +72,14 @@ class DetailsController extends Controller
 
         $rules = [
             'company_name' => 'required',
-            'client_id' => 'required',
-            'client_secret' => 'required',
+            // 'client_id' => 'required',
+            // 'client_secret' => 'required',
             'company_id' => 'required',
             'governate' => 'required',
             'regionCity' => 'required',
             'buildingNumber' => 'required',
             'street' => 'required',
-            "industry" => 'required',
+            // "industry" => 'required',
             'user_id' => [
                 'required',
                 Rule::unique('details', 'user_id'),

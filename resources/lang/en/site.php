@@ -308,8 +308,8 @@ return [
     'Foreign currency' => 'Add a invoice in a foreign currency',
     'Add' => 'ADD',
     'industry' => 'industry',
-    '' => '',
-    '' => '',
+    'Advanced Search' => 'Advanced Search',
+    'Free Search' => 'Free Search',
     '' => '',
 
 ];
