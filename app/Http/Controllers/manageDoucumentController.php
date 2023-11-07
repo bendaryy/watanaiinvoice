@@ -673,6 +673,7 @@ class manageDoucumentController extends Controller
         ($request->swiftCode ? $invoice['payment']["swiftCode"] = $request->swiftCode : "");
         ($request->Bankterms ? $invoice['payment']["terms"] = $request->Bankterms : "");
         // End Bank payment
+        $filePath = public_path(auth()->user()->id);
 
         $trnsformed = json_encode($invoice, JSON_UNESCAPED_UNICODE);
         $myFileToJson = fopen('C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
@@ -917,7 +918,7 @@ class manageDoucumentController extends Controller
         $trnsformed = json_encode($obj, JSON_UNESCAPED_UNICODE);
         $myFileToJson = fopen($filePath . '\SourceDocumentJson.json', "w") or die("unable to open file");
         $file = fwrite($myFileToJson, $trnsformed);
-        $fullSignedFile =  '{"documents":[' . "$trnsformed" . "]}";
+        $fullSignedFile = '{"documents":[' . "$trnsformed" . "]}";
 
         $response = Http::asForm()->post("$this->url1/connect/token", [
             'grant_type' => 'client_credentials',
@@ -973,7 +974,7 @@ class manageDoucumentController extends Controller
 
         }
 
-        return $invoice;
+        // return $invoice;
         // return $obj;
         // return redirect('cer')->with('id', $id);
     }

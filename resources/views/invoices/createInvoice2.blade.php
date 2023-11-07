@@ -746,7 +746,7 @@
                                                 <div class="d-grid col-6">
                                                     <button type="submit" class="btn btn-primary" name="action"
                                                         class="col-6" value="test" id="sendNewInv"
-                                                        formaction="{{ route('storeInvoice') }}">إرسال الفاتورة</button>
+                                                        formaction="{{ route('storeInvoice') }}" disabled>إرسال الفاتورة</button>
                                                     <button disabled style="display: none" class="btn btn-primary"
                                                         id="disabledButton">جارى الإرسال...</button>
                                                 </div>
