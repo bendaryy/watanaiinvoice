@@ -14,7 +14,7 @@ class manageDoucumentController extends Controller
     public $url1;
     public $url2;
 
-     public function __construct()
+    public function __construct()
     {
         $this->url1 = env('URL1');
         $this->url2 = env('URL2');
@@ -145,7 +145,7 @@ class manageDoucumentController extends Controller
 
             ),
             "documentType" => $request->DocumentType,
-            "documentTypeVersion" => "1.0",
+            "documentTypeVersion" => "0.9",
             "dateTimeIssued" => $request->date . "T" . date("h:i:s") . "Z",
             "taxpayerActivityCode" => $request->taxpayerActivityCode,
             "internalID" => $request->internalId,
@@ -246,7 +246,7 @@ class manageDoucumentController extends Controller
         ($request->street ? $invoice['receiver']["address"]['street'] = $request->street : "");
         ($request->receiverRegionCity ? $invoice['receiver']["address"]['regionCity'] = $request->receiverRegionCity : "");
         ($request->receiverGovernate ? $invoice['receiver']["address"]['governate'] = $request->receiverGovernate : "");
-        ($request->receiverPostalCode ? $invoice['receiver']["address"]['postalcode'] = $request->receiverPostalCode : "");
+        ($request->receiverPostalCode ? $invoice['receiver']["address"]['postalCode'] = $request->receiverPostalCode : "");
         ($request->receiverFloor ? $invoice['receiver']["address"]['floor'] = $request->receiverFloor : "");
         ($request->receiverRoom ? $invoice['receiver']["address"]['room'] = $request->receiverRoom : "");
         ($request->receiverLandmark ? $invoice['receiver']["address"]['landmark'] = $request->receiverLandmark : "");
@@ -731,7 +731,7 @@ class manageDoucumentController extends Controller
 
             ),
             "documentType" => $request->DocumentType,
-            "documentTypeVersion" => "1.0",
+            "documentTypeVersion" => "0.9",
             "dateTimeIssued" => $request->date . "T" . date("h:i:s") . "Z",
             "taxpayerActivityCode" => $request->taxpayerActivityCode,
             "internalID" => $request->internalId,
@@ -873,14 +873,14 @@ class manageDoucumentController extends Controller
 
         $trnsformed = json_encode($invoice, JSON_UNESCAPED_UNICODE);
         $folderName = auth()->user()->id;
-        if (!file_exists(public_path($folderName))){
+        if (!file_exists(public_path($folderName))) {
             mkdir(public_path($folderName));
         }
         $filePath = public_path(auth()->user()->id);
 
-        $myFileToJson = fopen($filePath.'\SourceDocumentJson.json', "w") or die("unable to open file");
+        $myFileToJson = fopen($filePath . '\SourceDocumentJson.json', "w") or die("unable to open file");
         fwrite($myFileToJson, $trnsformed);
-        $path = $filePath.'\SourceDocumentJson.json';
+        $path = $filePath . '\SourceDocumentJson.json';
         $fullDraftFile = file_get_contents($path);
 
         $draftInvoice = new DraftInvoice();
@@ -905,20 +905,35 @@ class manageDoucumentController extends Controller
 
     public function sendDraftData($id)
     {
+        $filePath = public_path(auth()->user()->id);
         $data = DraftInvoice::find($id)['jsondata'];
         $trnsformed = json_encode($data, JSON_UNESCAPED_UNICODE);
-        $myFileToJson = fopen('C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
+        $myFileToJson = fopen($filePath . '\SourceDocumentJson.json', "w") or die("unable to open file");
         fwrite($myFileToJson, $trnsformed);
-        $path = 'C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json';
+        $path = $filePath . '\SourceDocumentJson.json';
         $fullDraftFile = file_get_contents($path);
         $obj = json_decode($fullDraftFile, true);
         $datetime = $obj['dateTimeIssued'] = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
         $trnsformed = json_encode($obj, JSON_UNESCAPED_UNICODE);
-        $myFileToJson = fopen('C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
+        $myFileToJson = fopen($filePath . '\SourceDocumentJson.json', "w") or die("unable to open file");
         $file = fwrite($myFileToJson, $trnsformed);
-        // return $obj;
+        $fullSignedFile =  '{"documents":[' . "$trnsformed" . "]}";
 
-        return redirect('cer')->with('id', $id);
+        $response = Http::asForm()->post("$this->url1/connect/token", [
+            'grant_type' => 'client_credentials',
+            'client_id' => auth()->user()->details->client_id,
+            'client_secret' => auth()->user()->details->client_secret,
+            'scope' => "InvoicingAPI",
+        ]);
+
+        $invoice = Http::withHeaders([
+            "Authorization" => 'Bearer ' . $response['access_token'],
+            "Content-Type" => "application/json",
+        ])->withBody($fullSignedFile, "application/json")->post("$this->url2/api/v1/documentsubmissions");
+
+        return $invoice;
+        // return $obj;
+        // return redirect('cer')->with('id', $id);
     }
 
     // show specific invoice draft
@@ -1045,6 +1060,7 @@ class manageDoucumentController extends Controller
         $path4 = 'C:\laragon\www\stroker\EInvoicing/SourceDocumentJson.json';
 
         $fullSignedFile = file_get_contents($path);
+        return $fullSignedFile;
 
         $response = Http::asForm()->post("$this->url1/connect/token", [
             'grant_type' => 'client_credentials',
