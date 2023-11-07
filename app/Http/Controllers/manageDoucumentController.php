@@ -931,6 +931,48 @@ class manageDoucumentController extends Controller
             "Content-Type" => "application/json",
         ])->withBody($fullSignedFile, "application/json")->post("$this->url2/api/v1/documentsubmissions");
 
+        if ($invoice['submissionId'] == !null) {
+            // if ($invoice) {
+            $sentInvoices = new SentInvoices();
+            $sentInvoices->uuid = $invoice['acceptedDocuments'][0]['uuid'];
+            $sentInvoices->longid = $invoice['acceptedDocuments'][0]['longId'];
+            $sentInvoices->tax_id = auth()->user()->details->company_id;
+            $sentInvoices->jsondata = json_decode($fullSignedFile);
+            $sentInvoices->save();
+
+            if ($id) {
+                $sentInvoices->draft_id = $id;
+
+                DB::transaction(function () use ($sentInvoices) {
+                    if ($sentInvoices->save()) {
+                        $draftInv = DraftInvoice::where('id', $sentInvoices->draft_id)->first();
+                        $draftInv->inv_id = $sentInvoices->id;
+                        $draftInv->inv_uuid = $sentInvoices->uuid;
+                    }
+                    $draftInv->update();
+                });
+            }
+
+            // return $sentInvoices->id;
+            // unlink($path);
+            // unlink($path2);
+            // unlink($path3);
+            // unlink($path4);
+            return redirect()->route('sentofdraft')->with('success', 'تم تسجيل الفاتورة بنجاح ');
+            // return $invoice->body();
+
+        } else {
+            // unlink($path);
+            // unlink($path2);
+            // unlink($path3);
+            // unlink($path4);
+            //return $invoice->body();
+            foreach ($invoice['rejectedDocuments'][0]['error']['details'] as $Rejectedinvoice) {
+                return redirect()->route('sentofdraft')->with('error', $Rejectedinvoice['message'] . '<br>' . $Rejectedinvoice['target']);
+            }
+
+        }
+
         return $invoice;
         // return $obj;
         // return redirect('cer')->with('id', $id);
