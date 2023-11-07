@@ -872,9 +872,15 @@ class manageDoucumentController extends Controller
         // End Bank payment
 
         $trnsformed = json_encode($invoice, JSON_UNESCAPED_UNICODE);
-        $myFileToJson = fopen('C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
+        $folderName = auth()->user()->id;
+        if (!file_exists(public_path($folderName))){
+            mkdir(public_path($folderName));
+        }
+        $filePath = public_path(auth()->user()->id);
+
+        $myFileToJson = fopen($filePath.'\SourceDocumentJson.json', "w") or die("unable to open file");
         fwrite($myFileToJson, $trnsformed);
-        $path = 'C:\laragon\www\stroker\EInvoicing\SourceDocumentJson.json';
+        $path = $filePath.'\SourceDocumentJson.json';
         $fullDraftFile = file_get_contents($path);
 
         $draftInvoice = new DraftInvoice();
@@ -1114,7 +1120,7 @@ class manageDoucumentController extends Controller
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
         $unittypes = DB::table('unittypes')->get();
-        $allCompanies = DB::table('companies2')->get();
+        $allCompanies = DB::table('customers')->get();
         $taxTypes = DB::table('taxtypes')->get();
         return view('invoices.createInvoice2', compact('allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products', 'unittypes'));
     }
@@ -1139,9 +1145,9 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('companies2')->get();
+        $allCompanies = DB::table('customers')->get();
         $taxTypes = DB::table('taxtypes')->get();
-        $companiess = DB::table('companies2')->where('id', $request->receiverName)->get();
+        $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
         return view('invoices.createInvoice2', compact('companiess', 'allCompanies', "codes", 'ActivityCodes', 'taxTypes', "products"));
     }
 
@@ -1162,7 +1168,7 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('companies2')->get();
+        $allCompanies = DB::table('customers')->get();
         $unittypes = DB::table('unittypes')->get();
         $taxTypes = DB::table('taxtypes')->get();
         return view('invoices.createInvoice3', compact('allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products', 'unittypes'));
@@ -1188,9 +1194,9 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('companies2')->get();
+        $allCompanies = DB::table('customers')->get();
         $taxTypes = DB::table('taxtypes')->get();
-        $companiess = DB::table('companies2')->where('id', $request->receiverName)->get();
+        $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
         return view('invoices.createInvoice3', compact('companiess', 'allCompanies', "codes", 'ActivityCodes', 'taxTypes', "products"));
     }
 
@@ -1211,7 +1217,7 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('companies2')->get();
+        $allCompanies = DB::table('customers')->get();
         $taxTypes = DB::table('taxtypes')->get();
         return view('invoices.createInvoice3', compact('allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products'));
     }
@@ -1236,9 +1242,9 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('companies2')->get();
+        $allCompanies = DB::table('customers')->get();
         $taxTypes = DB::table('taxtypes')->get();
-        $companiess = DB::table('companies2')->where('id', $request->receiverName)->get();
+        $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
         return view('invoices.createInvoice3', compact('companiess', 'allCompanies', "codes", 'ActivityCodes', 'taxTypes', "products"));
     }
 
