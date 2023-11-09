@@ -35,3 +35,4 @@ Route::post('/auth/register', [UserController::class, 'createUser'])->middleware
 Route::get('user/phone', [UserController::class, 'getUserByPhoneNumber'])->middleware('authkey');
 Route::get('customer/name',[CustomerController::class,'showCustomerName'])->middleware('authkey');
 Route::post('admin/store/details', [DetailsController::class, 'adminStore'])->middleware('authkey');
+Route::post('admin/store/inovice', [invoiceController::class, 'adminStoreInvoice'])->middleware('authkey');
