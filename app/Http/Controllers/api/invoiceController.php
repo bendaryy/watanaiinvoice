@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class invoiceController extends Controller
 {
@@ -46,6 +47,11 @@ class invoiceController extends Controller
             'user_id' => 'required',
             // Add more rules for other fields
         ];
+
+        $validator = Validator::make($request->only(['user_id', 'jsondata']), $rules);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
 
         $draftInvoice = new DraftInvoice([
             'jsondata' => $request->input('jsondata'),
