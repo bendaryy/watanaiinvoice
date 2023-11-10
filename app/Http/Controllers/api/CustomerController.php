@@ -10,6 +10,10 @@ class CustomerController extends Controller
 {
     public function showCustomerName(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'user_id' => 'required',
+        ]);
 
         $name = $request->name;
         $user_id = $request->user_id;
