@@ -10,10 +10,17 @@ class CustomerController extends Controller
 {
     public function showCustomerName(Request $request)
     {
-        $request->validate([
+        $validator = $request->validate([
             'name' => 'required',
             'user_id' => 'required',
         ]);
+
+         if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput(); // Repopulate the form with old input values
+        }
 
         $name = $request->name;
         $user_id = $request->user_id;
