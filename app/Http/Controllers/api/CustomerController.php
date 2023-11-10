@@ -75,16 +75,56 @@ class CustomerController extends Controller
 
         $customer = Customer::create($request->all());
 
-      DB::transaction(function () use ($customer) {
-            if ($customer->save()) {
-                $new = User::where('id', $customer->user_id)->with('details')->first();
-                $customer->user_taxid = $new['details']["company_id"];
-                // $draftInv->inv_id = $draftInvoice->id;
-                // $draftInv->inv_uuid = $draftInvoice->uuid;
+        //   DB::transaction(function () use ($customer) {
+        //         if ($customer->save()) {
+        //             $new = User::where('id', $customer->user_id)->with('details')->first();
+        //             if(($new)){
+        //                 $customer->user_taxid = $new['details']["company_id"];
+        //                 $customer->update();
+        //             }else{
+        //                 $customer->user_taxid = NULL;
+        //                 $customer->update();
+        //             }
+        //         }
+        //     });
 
-            }
-            $customer->update();
-        });
+        try {
+            DB::transaction(function () use ($customer) {
+                // Fetch the user or model with the relationship
+                $user = User::find($customer->user_id);
+
+                // Check if the relationship with details exists
+                if ($user->details()->exists()) {
+                    $new = User::where('id', $customer->user_id)->with('details')->first();
+                    // Relationship exists, update the existing details
+                    // $user->relationship->details()->update([
+                    $customer->user_taxid = $new['details']["company_id"];
+                    $customer->update();
+
+
+                    // 'column_name' => $request->input('new_value'),
+                    // Add other columns as needed
+                    // ]);
+                } else {
+                    // Relationship doesn't exist, create a new related record
+                    // $user->details()->create([
+                    // 'column_name' => $request->input('new_value'),
+                    // Add other columns as needed
+                    // ]);
+                }
+
+                // Additional transactional logic if needed
+                // ...
+
+            });
+
+            // Commit the transaction
+
+        } catch (\Exception $e) {
+            // Handle exceptions and roll back the transaction if an exception occurs
+            DB::rollBack();
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
 
         return $customer;
 
