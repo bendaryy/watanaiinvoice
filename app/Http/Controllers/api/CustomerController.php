@@ -11,7 +11,8 @@ class CustomerController extends Controller
     public function showCustomerName(Request $request)
     {
         $name = $request->name;
-        $customerName = Customer::where('name', "LIKE", '%' . $name . '%')->get();
+        $user_id = $request->user_id;
+        $customerName = Customer::where('name', "LIKE", '%' . $name . '%')->where("user_id", $user_id)->get();
         if (isset($customerName[0])) {
             return $customerName;
         } else {

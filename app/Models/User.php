@@ -12,11 +12,15 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+      protected static function booted()
+    {
+        static::deleting(function ($user) {
+            // SentInvoices::where('user_id', $user->id)->delete();
+            DraftInvoice::where('user_id', $user->id)->delete();
+            Details::where('user_id', $user->id)->delete();
+        });
+    }
+
     protected $fillable = [
         'name',
         'email',

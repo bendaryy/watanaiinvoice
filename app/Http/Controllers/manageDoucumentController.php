@@ -919,6 +919,7 @@ class manageDoucumentController extends Controller
         $myFileToJson = fopen($filePath . '\SourceDocumentJson.json', "w") or die("unable to open file");
         $file = fwrite($myFileToJson, $trnsformed);
         $fullSignedFile = '{"documents":[' . "$trnsformed" . "]}";
+        // return $obj['receiver']['name'];
 
         $response = Http::asForm()->post("$this->url1/connect/token", [
             'grant_type' => 'client_credentials',
@@ -939,6 +940,9 @@ class manageDoucumentController extends Controller
             $sentInvoices->longid = $invoice['acceptedDocuments'][0]['longId'];
             $sentInvoices->tax_id = auth()->user()->details->company_id;
             $sentInvoices->jsondata = json_decode($fullSignedFile);
+            if(isset($obj['receiver']['name'])){
+                $sentInvoices->reveiver_name = $obj['receiver']['name'];
+            }
             $sentInvoices->save();
 
             if ($id) {
@@ -1034,7 +1038,7 @@ class manageDoucumentController extends Controller
             // $datefrom = $request->datefrom;
             // $dateto = $request->dateto;
             if ($request->datefrom && $request->dateto && $request->freetext) {
-                $query->where('tax_id', auth()->user()->details->company_id)->where('jsondata', "like", "%$freetext%")->whereBetween('created_at', [$datefrom, $dateto])->orWhere('uuid', 'like', "%$freetext%");
+                $query->where('tax_id', auth()->user()->details->company_id)->where('jsondata', "like", "%$freetext%")->orWhere('reveiver_name', "like", "%$freetext%")->whereBetween('created_at', [$datefrom, $dateto])->orWhere('uuid', 'like', "%$freetext%");
             } elseif ($request->datefrom && $request->dateto) {
                 $query->where('tax_id', auth()->user()->details->company_id)->whereBetween('created_at', [$datefrom, $dateto]);
             } elseif ($request->freetext && !null) {

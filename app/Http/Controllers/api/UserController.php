@@ -109,4 +109,11 @@ class UserController extends Controller
         $user = User::where('phone', $userPhone)->get();
         return $user->load('details');
     }
+    public function destroy($userId)
+    {
+        $user = User::find($userId);
+        $user->delete();
+        return ['message' => "User Deleted"];
+
+    }
 }

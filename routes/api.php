@@ -36,3 +36,4 @@ Route::get('user/phone', [UserController::class, 'getUserByPhoneNumber'])->middl
 Route::get('customer/name',[CustomerController::class,'showCustomerName'])->middleware('authkey');
 Route::post('admin/store/details', [DetailsController::class, 'adminStore'])->middleware('authkey');
 Route::post('admin/store/inovice', [invoiceController::class, 'adminStoreInvoice'])->middleware('authkey');
+Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->middleware('authkey');
