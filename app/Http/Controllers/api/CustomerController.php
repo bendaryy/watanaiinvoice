@@ -96,15 +96,9 @@ class CustomerController extends Controller
                 // Check if the relationship with details exists
                 if ($user->details()->exists()) {
                     $new = User::where('id', $customer->user_id)->with('details')->first();
-                    // Relationship exists, update the existing details
-                    // $user->relationship->details()->update([
                     $customer->user_taxid = $new['details']["company_id"];
                     $customer->update();
 
-
-                    // 'column_name' => $request->input('new_value'),
-                    // Add other columns as needed
-                    // ]);
                 } else {
                     // Relationship doesn't exist, create a new related record
                     // $user->details()->create([
