@@ -44,7 +44,7 @@ class invoiceController extends Controller
     {
         $rules = [
             'jsondata' => 'required',
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
             // Add more rules for other fields
         ];
 
