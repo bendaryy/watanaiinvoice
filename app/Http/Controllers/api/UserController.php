@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function allUsersForAdmin(){
+        $users = User::all();
+        return $users->load('details');
+    }
     public function createUser(Request $request)
     {
         try {

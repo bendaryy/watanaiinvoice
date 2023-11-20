@@ -13,6 +13,14 @@ use Illuminate\Validation\Rule;
 
 class invoiceController extends Controller
 {
+    public function adminIndex($id)
+    {
+        $draft = DraftInvoice::where('user_id', $id)->get();
+        return $draft;
+    }
+
+
+
     public function index()
     {
         $draft = DraftInvoice::where('user_id', auth()->user()->id)->get();
@@ -90,5 +98,25 @@ class invoiceController extends Controller
         } else {
             return response(['message' => "unauthorized"], 403);
         }
+    }
+
+
+
+     public function sendDraftData($id)
+    {
+        $data = DraftInvoice::find($id)['jsondata'];
+        // $trnsformed = json_encode($data, JSON_UNESCAPED_UNICODE);
+        // $myFileToJson = fopen('C:\laragon\www\watanai\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
+        // fwrite($myFileToJson, $trnsformed);
+        // $path = 'C:\laragon\www\watanai\EInvoicing\SourceDocumentJson.json';
+        // $fullDraftFile = file_get_contents($path);
+        // $obj = json_decode($fullDraftFile, true);
+        // $datetime = $obj['dateTimeIssued'] = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
+        // $trnsformed = json_encode($obj, JSON_UNESCAPED_UNICODE);
+        // $myFileToJson = fopen('C:\laragon\www\watanai\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
+        // $file = fwrite($myFileToJson, $trnsformed);
+        // return $obj;
+
+        return redirect('cer')->with('id', $id);
     }
 }
