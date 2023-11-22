@@ -59,7 +59,7 @@ class invoiceController extends Controller
         }
         $trnsformed = json_encode($request->input('jsondata'), JSON_UNESCAPED_UNICODE);
         $draftInvoice = new DraftInvoice([
-            'jsondata' => json_decode($trnsformed),
+            'jsondata' => json_decode($trnsformed, true),
             'user_id' => $request->input('user_id'), // Associate the user's ID
         ]);
 
