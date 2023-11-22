@@ -60,7 +60,7 @@ class invoiceController extends Controller
 
         $decodedJsonData = json_encode($request->input('jsondata'), JSON_UNESCAPED_UNICODE);
         $draftInvoice = new DraftInvoice([
-            'jsondata' => $decodedJsonData,
+            'jsondata' => json_decode($decodedJsonData),
             'user_id' => $request->input('user_id'), // Associate the user's ID
         ]);
 
