@@ -19,6 +19,8 @@ class invoiceController extends Controller
         return $draft;
     }
 
+
+
     public function index()
     {
         $draft = DraftInvoice::where('user_id', auth()->user()->id)->get();
@@ -42,6 +44,7 @@ class invoiceController extends Controller
 
     }
 
+
     public function adminStoreInvoice(Request $request)
     {
         $rules = [
@@ -58,9 +61,8 @@ class invoiceController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $decodedJsonData = json_encode($request->input('jsondata'), JSON_UNESCAPED_UNICODE);
         $draftInvoice = new DraftInvoice([
-            'jsondata' => json_decode($decodedJsonData),
+            'jsondata' => $request->input('jsondata'),
             'user_id' => $request->input('user_id'), // Associate the user's ID
         ]);
 
@@ -91,7 +93,9 @@ class invoiceController extends Controller
         }
     }
 
-    public function sendDraftData($id)
+
+
+     public function sendDraftData($id)
     {
         $userId = DraftInvoice::find($id)['user_id'];
         $data = DraftInvoice::find($id)['jsondata'];
@@ -106,11 +110,11 @@ class invoiceController extends Controller
         // $myFileToJson = fopen('C:\laragon\www\watanai\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
         // $file = fwrite($myFileToJson, $trnsformed);
         // return $obj;
-        if ($userId == auth()->user()->id) {
+        if($userId == auth()->user()->id){
             return $data;
 
-        } else {
-            return response(['message' => "Unauthorize Access!"], 401);
+        }else{
+            return response(['message'=>"Unauthorize Access!"],401);
         }
 
         // return redirect('cer')->with('id', $id);
