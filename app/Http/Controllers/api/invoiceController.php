@@ -62,7 +62,7 @@ class invoiceController extends Controller
         }
 
         $draftInvoice = new DraftInvoice([
-            'jsondata' => $request->input('jsondata'),
+            'jsondata' => json_decode($request->input('jsondata')),
             'user_id' => $request->input('user_id'), // Associate the user's ID
         ]);
 
