@@ -28,11 +28,6 @@ class invoiceController extends Controller
     }
     public function store(Request $request)
     {
-        // $draft = DraftInvoice::create($request->only([
-        //     'tax_id', 'inv_id', 'jsondata', 'user_id' => Auth::user()->id,
-        // ]));
-
-        // Create a new DraftInvoice record and associate it with the user's ID
         $user = Auth::user();
         $draftInvoice = new DraftInvoice([
             'tax_id' => $user->details->company_id,
@@ -48,6 +43,7 @@ class invoiceController extends Controller
         return $draftInvoice;
 
     }
+
 
     public function adminStoreInvoice(Request $request)
     {
@@ -74,9 +70,6 @@ class invoiceController extends Controller
 
         DB::transaction(function () use ($draftInvoice) {
             if ($draftInvoice->save()) {
-                // $draftInv = DraftInvoice::where('user_id', $draftInvoice->draft_id)->first();
-                // $draftInv->inv_id = $draftInvoice->id;
-                // $draftInv->inv_uuid = $draftInvoice->uuid;
                 if (isset($draftInvoice->user_id)) {
                     $userId = User::find($draftInvoice->user_id)->with('details')->get();
                     $draftInvoice->tax_id = $userId[0]["details"]['company_id'];
@@ -104,6 +97,7 @@ class invoiceController extends Controller
 
      public function sendDraftData($id)
     {
+        $userId = DraftInvoice::find($id)['user_id'];
         $data = DraftInvoice::find($id)['jsondata'];
         // $trnsformed = json_encode($data, JSON_UNESCAPED_UNICODE);
         // $myFileToJson = fopen('C:\laragon\www\watanai\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
@@ -116,7 +110,13 @@ class invoiceController extends Controller
         // $myFileToJson = fopen('C:\laragon\www\watanai\EInvoicing\SourceDocumentJson.json', "w") or die("unable to open file");
         // $file = fwrite($myFileToJson, $trnsformed);
         // return $obj;
+        if($userId == auth()->user()->id){
+            return $data;
 
-        return redirect('cer')->with('id', $id);
+        }else{
+            return response(['message'=>"Unauthorize Access!"],401);
+        }
+
+        // return redirect('cer')->with('id', $id);
     }
 }
