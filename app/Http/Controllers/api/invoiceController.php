@@ -61,8 +61,9 @@ class invoiceController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
+         $decodedJsonData = json_decode($request->input('jsondata'), true);
         $draftInvoice = new DraftInvoice([
-            'jsondata' => json_decode($request->input('jsondata'),true),
+            'jsondata' => $decodedJsonData,
             'user_id' => $request->input('user_id'), // Associate the user's ID
         ]);
 
