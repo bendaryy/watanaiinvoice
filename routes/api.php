@@ -30,6 +30,7 @@ Route::post('/auth/login', [UserController::class, 'loginUser']);
 Route::post('/auth/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('store/details', [DetailsController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/senddraft/{id}', [invoiceController::class,'sendDraftData'])->middleware('auth:sanctum');
+Route::get('/savetosent', [invoiceController::class,'saveToSentDocuments'])->middleware('auth:sanctum');
 
 // this api's for admins or systems
 Route::post('/auth/register', [UserController::class, 'createUser'])->middleware('authkey');
