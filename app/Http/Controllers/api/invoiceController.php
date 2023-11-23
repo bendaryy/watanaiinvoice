@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\DraftInvoice;
+use App\Models\SentInvoices;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +60,7 @@ class invoiceController extends Controller
         }
         $trnsformed = json_encode($request->input('jsondata'), JSON_UNESCAPED_UNICODE);
         $draftInvoice = new DraftInvoice([
-            'jsondata' => json_decode($trnsformed, true),
+            'jsondata' => json_decode($trnsformed),
             'user_id' => $request->input('user_id'), // Associate the user's ID
         ]);
 
@@ -113,5 +114,18 @@ class invoiceController extends Controller
         }
 
         // return redirect('cer')->with('id', $id);
+    }
+    public function saveToSentDocuments(Request $request)
+    {
+        $sentInvoices = new SentInvoices();
+        $sentInvoices->uuid = $request->uuid;
+        $sentInvoices->longid = $request->longid;
+        $sentInvoices->user_id = $request->user_id;
+        $sentInvoices->tax_id = auth()->user()->details->company_id;
+        $sentInvoices->jsondata = json_decode($request->jsondata);
+        $sentInvoices->save();
+
+
+
     }
 }
