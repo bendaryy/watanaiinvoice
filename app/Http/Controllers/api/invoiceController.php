@@ -120,7 +120,7 @@ class invoiceController extends Controller
         $sentInvoices = new SentInvoices();
         $sentInvoices->uuid = $request->uuid;
         $sentInvoices->longid = $request->longid;
-        $sentInvoices->user_id = $request->user_id;
+        $sentInvoices->user_id = auth()->user()->id;
         $sentInvoices->tax_id = auth()->user()->details->company_id;
         $sentInvoices->jsondata = json_decode($request->jsondata);
         $sentInvoices->save();
