@@ -127,7 +127,14 @@ class invoiceController extends Controller
 
         return $sentInvoices;
 
-
-
     }
+    public function saveDraftAfterTransaction($id, Request $request)
+    {
+
+        $draftInv = DraftInvoice::where('id', $id)->first();
+        $draftInv->inv_id = $request->inv_id;
+        $draftInv->inv_uuid = $request->inv_uuid;
+        $draftInv->save();
+    }
+
 }
