@@ -32,6 +32,7 @@ Route::post('store/details', [DetailsController::class, 'store'])->middleware('a
 Route::get('/senddraft/{id}', [invoiceController::class,'sendDraftData'])->middleware('auth:sanctum');
 Route::post('/savetosent', [invoiceController::class,'saveToSentDocuments'])->middleware('auth:sanctum');
 Route::post('/savedraft/{id}',[invoiceController::class,'saveDraftAfterTransaction'])->middleware('auth:sanctum');
+Route::get('/sendinvoices', [invoiceController::class,'showSentInvoice'])->middleware('auth:sanctum');
 
 // this api's for admins or systems
 Route::post('/auth/register', [UserController::class, 'createUser'])->middleware('authkey');

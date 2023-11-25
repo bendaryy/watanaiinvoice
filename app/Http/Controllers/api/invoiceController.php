@@ -138,4 +138,9 @@ class invoiceController extends Controller
         $draftInv->save();
     }
 
+    public function showSentInvoice(){
+        $sentInvoices = SentInvoices::where('user_id', auth()->user()->id)->paginate(10);
+        return $sentInvoices;
+    }
+
 }
