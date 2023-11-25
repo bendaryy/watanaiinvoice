@@ -123,6 +123,7 @@ class invoiceController extends Controller
         $sentInvoices->user_id = auth()->user()->id;
         $sentInvoices->tax_id = auth()->user()->details->company_id;
         $sentInvoices->jsondata = $request->jsondata;
+        $sentInvoices->draft_id = $request->draft_id;
         $sentInvoices->save();
 
         return $sentInvoices;
