@@ -35,48 +35,50 @@
                     <table id="example2" class="table table-striped table-bordered text-center">
                         <thead>
                             <tr>
-                                <th>مسلسل</th>
-                                <th>الرقم الداخلى</th>
-                                <th>اسم العميل</th>
-                                <th>تاريخ كتــابة الفاتــورة</th>
-                                <th>إجمالى الفاتورة</th>
-                                <th>التحكم</th>
-                                <th>موقــف الفــاتورة</th>
-                                <th>مسح</th>
+                                <th>@lang('site.Sequence')</th>
+                                <th>@lang('site.internalid')</th>
+                                <th>@lang('site.customer_name')</th>
+                                <th>@lang('site.dateTimeIssued')</th>
+                                <th>@lang('site.Total')</th>
+                                <th>@lang('site.control')</th>
+                                <th>@lang('site.invoice status')</th>
+                                <th>@lang('site.Delete')</th>
                         </thead>
                         <tbody>
 
 
-                            @foreach ($allDraft as $index=>$draft)
+                            @foreach ($allDraft as $index => $draft)
                                 <tr>
-                                    <td>{{$index + 1 }}</td>
+                                    <td>{{ $index + 1 }}</td>
                                     <td>{{ $draft['jsondata']['internalID'] }}</td>
                                     @isset($draft['jsondata']['receiver']['name'])
                                         <td>{{ $draft['jsondata']['receiver']['name'] }}</td>
                                     @else
                                         <td></td>
                                     @endisset
-                                    <td>{{ Carbon\Carbon::parse($draft['jsondata']['dateTimeIssued'])->format('d-m-Y') }}</td>
+                                    <td>{{ Carbon\Carbon::parse($draft['jsondata']['dateTimeIssued'])->format('d-m-Y') }}
+                                    </td>
                                     <td>{{ $draft['jsondata']['totalAmount'] }}</td>
                                     <td>
-                                        <a href="{{ route('showDraftDetails',$draft->id) }}" class="btn btn-secondary">عرض التفاصيل</a>
+                                        <a href="{{ route('showDraftDetails', $draft->id) }}" class="btn btn-secondary">@lang('site.View details')</a>
                                     </td>
 
-                                        {{-- <form action="{{ route('sendDraftData',$draft->id) }}" method="post">
+                                    {{-- <form action="{{ route('sendDraftData',$draft->id) }}" method="post">
                                             @csrf
                                             @method('post')
                                             <button class="btn btn-success">ارسال</button>
                                         </form> --}}
-                                    @if($draft->inv_uuid != null)
-                                        <td style="background-color: #28A745;color:white">تم إرسالها</td>
-                                        @else
-                                        <td style="background-color: #FFC107;">غير مرسلة</td>
+                                    @if ($draft->inv_uuid != null)
+                                        <td style="background-color: #28A745;color:white">@lang('site.sent')</td>
+                                    @else
+                                        <td style="background-color: #FFC107;">@lang('site.Not sent')</td>
                                     @endif
                                     <td>
-                                        <form action="{{ route('deleteDraft',$draft->id) }}" method="post">
+                                        <form action="{{ route('deleteDraft', $draft->id) }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button class="btn btn-danger" onclick="return confirm('هل أنت متأكد من مسح الفاتورة؟');">مسح الفاتورة</button>
+                                            <button class="btn btn-danger"
+                                                onclick="return confirm('هل أنت متأكد من مسح الفاتورة؟');">@lang("site.Delete invoice")</button>
                                         </form>
                                     </td>
                                 </tr>

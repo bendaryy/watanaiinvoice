@@ -139,7 +139,7 @@ class invoiceController extends Controller
     }
 
     public function showSentInvoice(){
-        $sentInvoices = SentInvoices::where('user_id', auth()->user()->id)->paginate(10);
+        $sentInvoices = SentInvoices::where('user_id', auth()->user()->id)->paginate(3);
         return $sentInvoices;
     }
 
