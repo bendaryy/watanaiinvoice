@@ -15,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::latest()->get();
+        $customers = Customer::where('user_id',auth()->user()->id)->latest()->get();
 
         return view('customer.index', compact('customers'));
     }

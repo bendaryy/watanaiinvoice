@@ -887,6 +887,7 @@ class manageDoucumentController extends Controller
         $draftInvoice = new DraftInvoice();
         $draftInvoice->tax_id = auth()->user()->details->company_id;
         $draftInvoice->jsondata = json_decode($fullDraftFile);
+        $draftInvoice->user_id = auth()->user()->id;
         $draftInvoice->save();
         // echo $fullDraftFile;
         unlink($path);
@@ -898,7 +899,7 @@ class manageDoucumentController extends Controller
 
     public function showDraft()
     {
-        $allDraft = DraftInvoice::where('tax_id', auth()->user()->details->company_id)->orderBy('id', 'desc')->paginate(100);
+        $allDraft = DraftInvoice::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(100);
         return view('draft.index', compact('allDraft'));
     }
 
