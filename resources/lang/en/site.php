@@ -302,7 +302,7 @@ return [
     'invoices to' => 'Date To',
     'Invoice Direction' => 'Invoice Direction',
     'sent' => 'Sent',
-    'Not sent' => 'Not Sent',
+    'Not sent' => 'Pending',
     'received' => 'Received',
     'Invoices Status' => 'Invoices Status',
     'Results of search' => 'Results of search',

@@ -112,7 +112,7 @@
         </div>
         <!--end row-->
         {{-- <div class="row"> --}}
-        <div class="card radius-10" style="width: 60%">
+        <div class="card radius-10" style="width: 65%">
             <div class="card-header border-bottom-0 bg-transparent">
                 <div class="d-flex align-items-center">
                     <div>
@@ -153,7 +153,7 @@
                                     <td>{{ $draft['jsondata']['totalAmount'] }}</td>
                                     <td>
                                         <a href="{{ route('showDraftDetails', $draft->id) }}"
-                                            class="btn btn-secondary">@lang('site.View details')</a>
+                                            class="btn btn-sm btn-secondary radius-2">@lang('site.View details')</a>
                                     </td>
 
                                     {{-- <form action="{{ route('sendDraftData',$draft->id) }}" method="post">
@@ -162,9 +162,13 @@
                                             <button class="btn btn-success">ارسال</button>
                                         </form> --}}
                                     @if ($draft->inv_uuid != null)
-                                        <td style="background-color: #28A745;color:white">@lang('site.sent')</td>
+                                        <td>
+                                           <a  class="btn btn-sm btn-success radius-2" style="width: 80px;cursor: text;"> @lang('site.sent')</a>
+                                        </td>
                                     @else
-                                        <td style="background-color: #FFC107;">@lang('site.Not sent')</td>
+                                        <td>
+                                            <a  class="btn btn-sm btn-warning radius-2" style="width: 80px;cursor: text;"> @lang('site.Not sent')</a>
+                                        </td>
                                     @endif
                                     {{-- <td>
                                         <form action="{{ route('deleteDraft', $draft->id) }}" method="post">

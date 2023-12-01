@@ -380,7 +380,7 @@ return [
     'invoices to' => 'التاريخ إلى',
     'Invoice direction' => 'إتجاه الفاتورة',
     'sent' => 'تم إرسالها',
-    'Not sent' => 'غير مرسلة',
+    'Not sent' => 'قيد الإنتظار',
     'received' => 'تم إستقبالها',
     'Invoices Status' => 'حالة الفواتير',
     'Results of search' => 'نتائج البحث',
