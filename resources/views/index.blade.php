@@ -32,7 +32,7 @@
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
                                     <p class="mb-0">@lang('site.customers')</p>
-                                    <h6 class="mb-0">{{ $customers }}</h6>
+                                    <h6 class="mb-0" style="font-weight: bold">{{ $customers }}</h6>
                                 </div>
                                 <div class="widgets-icons bg-gradient-burning text-white"><i class='bx bx-group'></i>
                                 </div>
@@ -81,10 +81,9 @@
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
                                     <p class="mb-0">@lang('site.sent_documents')</p>
-                                    <h4 class="font-weight-bold">
-                                    </h4>
+                                    <h6 class="mb-0" style="font-weight: bold">{{ $sentinvoices }}</h6>
                                 </div>
-                                <div class="widgets-icons bg-gradient-blues text-white"><i class='bx bx-line-chart'></i>
+                                <div class="widgets-icons bg-gradient-blues text-white"><i class='bx bx-badge-check'></i>
                                 </div>
                             </div>
                         </div>

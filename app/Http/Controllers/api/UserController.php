@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    public function allUsersForAdmin(){
+    public function allUsersForAdmin()
+    {
         $users = User::all();
         return $users->load('details');
     }
@@ -112,6 +114,35 @@ class UserController extends Controller
         $userPhone = $request->phone;
         $user = User::where('phone', $userPhone)->get();
         return $user->load('details');
+    }
+    public function editUserData(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Validate the request data
+        $rules = [
+            'email' => 'email|unique:users,email,' . $user->id,
+            'phone' => 'unique:users,phone,' . $user->id,
+            // Add more validation rules as needed
+        ];
+        try {
+            $request->validate($rules);
+        } catch (ValidationException $e) {
+            // If validation fails, return a custom error message
+            return response()->json(['error' => $e->validator->errors()->first()], 422);
+        }
+        $user->update($request->all());
+
+        if ($request->filled('password')) {
+            // Hash the new password
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+        }
+
+// Update the user
+
+        return response()->json(['message' => 'User updated successfully', 'user' => $user->load('details')]);
+
     }
     public function destroy($userId)
     {
