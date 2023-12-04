@@ -413,7 +413,7 @@
         <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i
                 class='bx bxs-up-arrow-alt'></i></a>
         <!--End Back To Top Button-->
-        <footer class="page-footer">
+        <footer class="page-footer" style="width: 100%">
             <p class="mb-0">Copyright © <a href="https://watan.ai" target=".blank">
                     {{-- @if (isset(auth()->user()->details->company_name))
                         {{ auth()->user()->details->company_name }}
