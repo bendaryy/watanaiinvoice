@@ -60,7 +60,7 @@
                         </a>
                     @else
                         <a href="{{ url('/') }}">
-                            <h4 class="logo-text">لا توجد بيانات شركة</h4>
+                            <h4 class="logo-text">@lang('site.No Company')</h4>
                         </a>
                     @endif
                     {{-- @else

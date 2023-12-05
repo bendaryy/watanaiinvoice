@@ -479,6 +479,10 @@ class manageDoucumentController extends Controller
         $draftInvoice = new DraftInvoice();
         $draftInvoice->tax_id = auth()->user()->details->company_id;
         $draftInvoice->jsondata = json_decode($fullDraftFile);
+        $draftInvoice->t1_total = floatval($request->totalt2Amount);
+        $draftInvoice->t4_total = floatval($request->totalt4Amount);
+        $draftInvoice->net_amount = floatval($request->TotalNetAmount);
+        $draftInvoice->total = floatval($request->totalAmount2);
         $draftInvoice->save();
 // echo $fullDraftFile;
         unlink($path);
@@ -888,6 +892,11 @@ class manageDoucumentController extends Controller
         $draftInvoice->tax_id = auth()->user()->details->company_id;
         $draftInvoice->jsondata = json_decode($fullDraftFile);
         $draftInvoice->user_id = auth()->user()->id;
+        $draftInvoice->t1_total = floatval($request->totalt2Amount);
+        $draftInvoice->t4_total = floatval($request->totalt4Amount);
+        $draftInvoice->net_amount = floatval($request->TotalNetAmount);
+        $draftInvoice->total = floatval($request->totalAmount2);
+
         $draftInvoice->save();
         // echo $fullDraftFile;
         unlink($path);
@@ -909,6 +918,7 @@ class manageDoucumentController extends Controller
     {
         $filePath = public_path(auth()->user()->id);
         $data = DraftInvoice::find($id)['jsondata'];
+        $sums = DraftInvoice::find($id);
         $trnsformed = json_encode($data, JSON_UNESCAPED_UNICODE);
         $myFileToJson = fopen($filePath . '\SourceDocumentJson.json', "w") or die("unable to open file");
         fwrite($myFileToJson, $trnsformed);
@@ -941,8 +951,13 @@ class manageDoucumentController extends Controller
             $sentInvoices->longid = $invoice['acceptedDocuments'][0]['longId'];
             $sentInvoices->tax_id = auth()->user()->details->company_id;
             $sentInvoices->jsondata = json_decode($fullSignedFile);
-            if(isset($obj['receiver']['name'])){
-                $sentInvoices->reveiver_name = $obj['receiver']['name'];
+            $sentInvoices->user_id = auth()->user()->id;
+            $sentInvoices->t1_total = $sums['t1_total'];
+            $sentInvoices->t4_total = $sums['t4_total'];
+            $sentInvoices->net_amount = $sums['net_amount'];
+            $sentInvoices->total = $sums['total'];
+            if (isset($obj['receiver']['name'])) {
+                $sentInvoices->receiver_name = $obj['receiver']['name'];
             }
             $sentInvoices->save();
 
@@ -1005,7 +1020,7 @@ class manageDoucumentController extends Controller
     // this is sent invoices that show our data to user
     public function SentInvoicesFromDraft()
     {
-        $allSent = SentInvoices::where('tax_id', auth()->user()->details->company_id)->orderBy('id', 'desc')->paginate(100);
+        $allSent = SentInvoices::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(100);
         // return $allSent;
         // foreach($allSent as $all){
         //     echo $all;
@@ -1039,7 +1054,7 @@ class manageDoucumentController extends Controller
             // $datefrom = $request->datefrom;
             // $dateto = $request->dateto;
             if ($request->datefrom && $request->dateto && $request->freetext) {
-                $query->where('tax_id', auth()->user()->details->company_id)->where('jsondata', "like", "%$freetext%")->orWhere('reveiver_name', "like", "%$freetext%")->whereBetween('created_at', [$datefrom, $dateto])->orWhere('uuid', 'like', "%$freetext%");
+                $query->where('tax_id', auth()->user()->details->company_id)->where('jsondata', "like", "%$freetext%")->orWhere('receiver_name', "like", "%$freetext%")->whereBetween('created_at', [$datefrom, $dateto])->orWhere('uuid', 'like', "%$freetext%");
             } elseif ($request->datefrom && $request->dateto) {
                 $query->where('tax_id', auth()->user()->details->company_id)->whereBetween('created_at', [$datefrom, $dateto]);
             } elseif ($request->freetext && !null) {
@@ -1184,7 +1199,7 @@ class manageDoucumentController extends Controller
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
         $unittypes = DB::table('unittypes')->get();
-        $allCompanies = DB::table('customers')->get();
+        $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         return view('invoices.createInvoice2', compact('allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products', 'unittypes'));
     }
@@ -1209,7 +1224,7 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('customers')->get();
+        $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
         return view('invoices.createInvoice2', compact('companiess', 'allCompanies', "codes", 'ActivityCodes', 'taxTypes', "products"));
@@ -1232,7 +1247,7 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('customers')->get();
+        $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $unittypes = DB::table('unittypes')->get();
         $taxTypes = DB::table('taxtypes')->get();
         return view('invoices.createInvoice3', compact('allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products', 'unittypes'));
@@ -1258,7 +1273,7 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('customers')->get();
+        $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
         return view('invoices.createInvoice3', compact('companiess', 'allCompanies', "codes", 'ActivityCodes', 'taxTypes', "products"));
@@ -1281,7 +1296,7 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('customers')->get();
+        $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         return view('invoices.createInvoice3', compact('allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products'));
     }
@@ -1306,7 +1321,7 @@ class manageDoucumentController extends Controller
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
         $ActivityCodes = DB::table('activity_code')->get();
-        $allCompanies = DB::table('customers')->get();
+        $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
         return view('invoices.createInvoice3', compact('companiess', 'allCompanies', "codes", 'ActivityCodes', 'taxTypes', "products"));

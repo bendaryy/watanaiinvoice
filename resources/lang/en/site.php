@@ -318,8 +318,9 @@ return [
     "Delete invoice"=>"Delete invoice",
     "View details"=>"View details",
     "View more"=>"View More",
-    ""=>"",
-    ""=>"",
+    "No Company"=>"No Company information",
+    "draft no sent"=>"Draft Invoices Not sent",
+    "all draft invoices"=>"All Saved Invoices",
     ""=>"",
     ""=>"",
 
