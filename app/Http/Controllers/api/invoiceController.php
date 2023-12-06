@@ -67,11 +67,19 @@ class invoiceController extends Controller
         $draftInvoice->save();
 
         DB::transaction(function () use ($draftInvoice) {
+            $total_t4 = $draftInvoice['jsondata']['taxTotals'][0]['amount'];
+            $total_t1 = $draftInvoice['jsondata']['taxTotals'][1]['amount'];
+            $net_amount = $draftInvoice['jsondata']['netAmount'];
+            $totalAmount = $draftInvoice['jsondata']['totalAmount'];
             if ($draftInvoice->save()) {
                 if (isset($draftInvoice->user_id)) {
                     $userId = User::find($draftInvoice->user_id)->with('details')->get();
                     $draftInvoice->tax_id = $userId[0]["details"]['company_id'];
                     $draftInvoice->phone = $userId[0]['phone'];
+                    $draftInvoice->t1_total = $total_t1;
+                    $draftInvoice->t4_total = $total_t4;
+                    $draftInvoice->net_amount = $net_amount;
+                    $draftInvoice->total = $totalAmount;
                 }
             }
             $draftInvoice->update();
@@ -138,7 +146,8 @@ class invoiceController extends Controller
         $draftInv->save();
     }
 
-    public function showSentInvoice(){
+    public function showSentInvoice()
+    {
         $sentInvoices = SentInvoices::where('user_id', auth()->user()->id)->paginate(3);
         return $sentInvoices;
     }
