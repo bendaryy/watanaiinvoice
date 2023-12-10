@@ -283,6 +283,7 @@ return [
     'Notification Status' => 'Notification Status',
     'Notification address' => 'Notification Address',
     'Saved documents sent' => 'Saved documents sent',
+    'Saved documents' => 'Saved documents',
     'sentsAndDrafts' => 'Saved documents sents and drafts',
     'drafts' => 'Drafts',
     'update password' => 'Change Password',

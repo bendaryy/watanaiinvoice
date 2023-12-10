@@ -45,7 +45,7 @@
                         <tbody>
 
 
-                            @foreach ($allDraft as $index => $draft)
+                            @foreach ($notsentdraft as $index => $draft)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $draft['jsondata']['internalID'] }}</td>
@@ -87,7 +87,7 @@
                         </tbody>
 
                     </table>
-                    {{ $allDraft->links() }}
+                    {{ $notsentdraft->links() }}
 
                 </div>
             </div>

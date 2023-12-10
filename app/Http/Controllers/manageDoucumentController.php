@@ -906,10 +906,20 @@ class manageDoucumentController extends Controller
 
     // show all drafts of invoices
 
-    public function showDraft()
+    public function showAllDraft()
     {
         $allDraft = DraftInvoice::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(100);
         return view('draft.index', compact('allDraft'));
+    }
+    public function showNotSentDraft()
+    {
+        $notsentdraft = DraftInvoice::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->whereNull('inv_uuid')->paginate(100);
+        return view('draft.notsent', compact('notsentdraft'));
+    }
+    public function showSentDraft()
+    {
+        $sentdraft = DraftInvoice::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->whereNotNull('inv_uuid')->paginate(100);
+        return view('draft.sent', compact('sentdraft'));
     }
 
     // send to draft

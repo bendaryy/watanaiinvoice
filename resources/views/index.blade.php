@@ -179,7 +179,7 @@
     <div class="page-content">
         <div class="row row-cols-1 row-cols-lg-3">
             <div class="col">
-                <a href="{{ route('showDraft') }}">
+                <a href="{{ route('sentdraft') }}">
                     <div class="card radius-10">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -197,7 +197,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{{ route('showDraft') }}">
+                <a href="{{ route('notsentdraft') }}">
                     <div class="card radius-10">
                         <div class="card-body">
                             <div class="d-flex align-items-center">

@@ -362,6 +362,7 @@ return [
     'Notification Status' => 'حالة الاشعار',
     'Notification address' => 'الاشعار',
     'Saved documents sent' => 'الوثائق المحفوظة المرسلة',
+    'Saved documents' => 'الوثائق المحفوظة',
     'sentsAndDrafts' => 'الإرسالات و المسودات',
     'update password' => 'تغيير الرقم السرى',
     'current password' => 'الرقم السرى الحالى',

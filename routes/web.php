@@ -183,7 +183,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
         // draft
         route::post('draft', [manageDoucumentController::class, 'draft'])->name('draft')->middleware('auth');
         route::post('draftDollar', [manageDoucumentController::class, 'draftDollar'])->name('draftDollar')->middleware('auth');
-        route::get('alldraft', [manageDoucumentController::class, 'showDraft'])->name('showDraft')->middleware('auth');
+        route::get('alldraft', [manageDoucumentController::class, 'showAllDraft'])->name('showDraft')->middleware('auth');
+        route::get('notsentdraft', [manageDoucumentController::class, 'showNotSentDraft'])->name('notsentdraft')->middleware('auth');
+        route::get('sentdraft', [manageDoucumentController::class, 'showSentDraft'])->name('sentdraft')->middleware('auth');
         route::post('sendDraft/{id}', [manageDoucumentController::class, 'sendDraftData'])->name('sendDraftData')->middleware('auth');
         route::get('showdetalils/{id}', [manageDoucumentController::class, 'showDraftDetails'])->name('showDraftDetails')->middleware('auth');
         route::delete('deletedraft/{id}', [manageDoucumentController::class, 'deleteDraft'])->name('deleteDraft')->middleware('auth');
