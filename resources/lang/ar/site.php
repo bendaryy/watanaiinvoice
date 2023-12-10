@@ -404,11 +404,13 @@ return [
     "Net Profit"=>"صافــى الأربــاح",
     'Total WithHolding' => 'إجمــالى ضريبة الخصم و الإضافة',
     'Total Vat' => 'إجمالى ضريبة القيمة المضافة',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
+    'Activity Code Name' => 'إسم كود النشاط الضريبى',
+    'Activity Code Number' => 'رقم الكود',
+    'All Activity Codes' => 'جميع أكواد النشــاط',
+    'Add New Activity Code' => 'إضافة كود نشــاط جديــد',
+    'Activity Codes' => 'اكواد النشاط',
+    'Activity Code Added' => 'تم إضافة كود النشاط بنجاح',
+    'Activity Code Deleted' => 'تم مسح كود النشاط بنجاح',
+    'Sure To Delete' => 'هل انت متأكد من المسح'
 
 ];

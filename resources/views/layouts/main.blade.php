@@ -262,6 +262,22 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:;">
+                        <div class="parent-icon"><i class="fadeIn animated bx bx-barcode"></i>
+                        </div>
+                        <div class="menu-title">@lang('site.Activity Codes')</div>
+                    </a>
+
+                    <ul>
+                        <li> <a href="{{ route('activitycode.index') }}"><i
+                                    class="bx bx-right-arrow-alt"></i>@lang('site.All Activity Codes')</a></li>
+
+                        <li> <a href="{{ route('activitycode.create') }}"><i
+                                    class="bx bx-right-arrow-alt"></i>@lang('site.Add New Activity Code')</a></li>
+
+                    </ul>
+                </li>
 
 
                 {{-- الإعدادات --}}

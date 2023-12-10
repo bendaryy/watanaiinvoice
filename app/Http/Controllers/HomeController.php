@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\DraftInvoice;
 use App\Models\Products;
 use App\Models\SentInvoices;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,8 @@ class HomeController extends Controller
         $pending = Products::whereStatus('Submitted')->count();
         $allDraft = DraftInvoice::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(5);
         $allDraftCount = DraftInvoice::where('user_id', auth()->user()->id)->count();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->count();
 
-        return view('index', compact('products', 'approved', 'pending', 'allDraft', 'customers', 'sentinvoices','NotsentOfDraft','allDraftCount','totalSales','netProfit','TotalVat','TotalWithHolding'));
+        return view('index', compact('products', 'approved', 'pending', 'allDraft', 'customers', 'sentinvoices','NotsentOfDraft','allDraftCount','totalSales','netProfit','TotalVat','TotalWithHolding','ActivityCodes'));
     }
 }

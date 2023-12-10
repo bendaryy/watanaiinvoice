@@ -1197,7 +1197,7 @@ class manageDoucumentController extends Controller
 
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
-        $ActivityCodes = DB::table('activity_code')->get();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->get();
         $unittypes = DB::table('unittypes')->get();
         $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
@@ -1223,7 +1223,7 @@ class manageDoucumentController extends Controller
 
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
-        $ActivityCodes = DB::table('activity_code')->get();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->get();
         $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
@@ -1246,7 +1246,7 @@ class manageDoucumentController extends Controller
 
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
-        $ActivityCodes = DB::table('activity_code')->get();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->get();
         $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $unittypes = DB::table('unittypes')->get();
         $taxTypes = DB::table('taxtypes')->get();
@@ -1272,7 +1272,7 @@ class manageDoucumentController extends Controller
 
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
-        $ActivityCodes = DB::table('activity_code')->get();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->get();
         $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         $companiess = DB::table('customers')->where('id', $request->receiverName)->get();
@@ -1295,7 +1295,7 @@ class manageDoucumentController extends Controller
 
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
-        $ActivityCodes = DB::table('activity_code')->get();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->get();
         $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         return view('invoices.createInvoice3', compact('allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products'));
@@ -1320,7 +1320,7 @@ class manageDoucumentController extends Controller
 
         $products = $product['result'];
         $codes = DB::table('products')->where('status', 'Approved')->get();
-        $ActivityCodes = DB::table('activity_code')->get();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->get();
         $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
         $taxTypes = DB::table('taxtypes')->get();
         $companiess = DB::table('customers')->where('id', $request->receiverName)->get();

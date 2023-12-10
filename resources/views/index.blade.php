@@ -6,7 +6,7 @@
 
     <div class="dash-wrapper" style="background-color: #111">
         <div class="row">
-             {{-- <div class="col border-end border-light-2">
+            {{-- <div class="col border-end border-light-2">
                 <div class="card bg-transparent shadow-none mb-0">
                     <div class="card-body text-center">
                         <p class="mb-1 text-white">Avg. Session Duration</p>
@@ -65,14 +65,13 @@
         </div><!--end row-->
     </div>
 
-    <div class="row row-cols-1 row-cols-xl-2">
-        <div class="col-11 d-flex m-auto">
-            <div class="card radius-10 w-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        @if (count($allDraft) > 0)
-                            <div class="card radius-10"
-                                style="width: 100%;padding:10px;margin:auto;">
+    @if (count($allDraft) > 0)
+        <div class="row row-cols-1 row-cols-xl-2">
+            <div class="col-11 d-flex m-auto">
+                <div class="card radius-10 w-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="card radius-10" style="width: 100%;padding:10px;margin:auto;">
                                 <div class="card-header border-bottom-0 bg-transparent">
                                     <div class="d-flex align-items-center">
                                         <div>
@@ -150,31 +149,31 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        </div>
+                        {{-- <div id="chart6"></div> --}}
                     </div>
-                    {{-- <div id="chart6"></div> --}}
                 </div>
             </div>
-        </div>
-        {{-- <div class="col d-flex">
-            <div class="card radius-10 w-100">
-                <div class="card-body">
+            {{-- <div class="col d-flex">
+                <div class="card radius-10 w-100">
+                    <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
                             <h6 class="mb-0">Visitor Status</h6>
                         </div>
                         <div class="d-flex align-items-center ms-auto font-13 gap-2">
                             <span class="border px-1 rounded cursor-pointer"><i
-                                    class='bx bxs-circle text-primary me-1'></i>New Visitor</span>
-                            <span class="border px-1 rounded cursor-pointer"><i
+                                class='bx bxs-circle text-primary me-1'></i>New Visitor</span>
+                                <span class="border px-1 rounded cursor-pointer"><i
                                     class='bx bxs-circle text-sky-light me-1'></i>Old Visitor</span>
+                                </div>
+                            </div>
+                            <div id="chart7"></div>
                         </div>
                     </div>
-                    <div id="chart7"></div>
-                </div>
-            </div>
-        </div> --}}
-    </div>
+                </div> --}}
+        </div>
+    @endif
 
 
     <div class="page-content">
@@ -226,8 +225,7 @@
                                         {{ $allDraftCount }}
                                     </h5>
                                 </div>
-                                <div class="widgets-icons bg-gradient-cosmic text-white"><i
-                                        class='bx bx-add-to-queue'></i>
+                                <div class="widgets-icons bg-gradient-cosmic text-white"><i class='bx bx-add-to-queue'></i>
                                 </div>
                             </div>
                         </div>
@@ -246,6 +244,24 @@
                                     </h5>
                                 </div>
                                 <div class="widgets-icons bg-gradient-burning text-white"><i class='bx bx-group'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ route('activitycode.index') }}">
+                    <div class="card radius-10">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <p class="mb-0">@lang('site.Activity Codes')</p>
+                                    <h5 class="mb-0 mt-2" style="font-weight: bold;margin-right: 10px">
+                                        {{ $ActivityCodes }}
+                                    </h5>
+                                </div>
+                                <div class="widgets-icons bg-gradient-Ohhappiness text-white"><i class='bx bx-barcode'></i>
                                 </div>
                             </div>
                         </div>

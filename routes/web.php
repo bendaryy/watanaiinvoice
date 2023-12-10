@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityCodeController;
 use App\Http\Controllers\ApisettingController as apisetting;
 use App\Http\Controllers\CategoryController as category;
 use App\Http\Controllers\CompanyController as company;
@@ -192,6 +193,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
         route::get('searchInSentInv', [manageDoucumentController::class, 'searchInSentInv'])->name('searchInSentInv')->middleware('auth');
         route::get('showsentdetails/{uuid}', [manageDoucumentController::class, 'showSentInvDetails'])->name('showsentdetails')->middleware('auth');
         route::delete('deletesent/{id}', [manageDoucumentController::class, 'deleteSentInv'])->name('deleteSentInv')->middleware('auth');
+        Route::resource('activitycode', ActivityCodeController::class)->middleware("auth");
     // });
 
 // get company api
