@@ -99,6 +99,13 @@ class invoiceController extends Controller
         }
     }
 
+    public function showDraftByIdForAdmins($id)
+    {
+        $invoice = DraftInvoice::findOrFail($id);
+        return $invoice;
+
+    }
+
     public function sendDraftData($id)
     {
         $userId = DraftInvoice::find($id)['user_id'];

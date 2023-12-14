@@ -686,6 +686,30 @@ class manageDoucumentController extends Controller
 
     }
 
+    public function editInvoice($id){
+        $response = Http::asForm()->post("$this->url1/connect/token", [
+            'grant_type' => 'client_credentials',
+            'client_id' => auth()->user()->details->client_id,
+            'client_secret' => auth()->user()->details->client_secret,
+            'scope' => "InvoicingAPI",
+        ]);
+
+        $product = Http::withHeaders([
+            "Authorization" => 'Bearer ' . $response['access_token'],
+            "Content-Type" => "application/json",
+        ])->get("$this->url2/api/v1.0/codetypes/requests/my?Active=true&Status=Approved&PS=1000");
+
+        $products = $product['result'];
+        $codes = DB::table('products')->where('status', 'Approved')->get();
+        $ActivityCodes = DB::table('activity_code')->where('user_id',auth()->user()->id)->get();
+        $unittypes = DB::table('unittypes')->get();
+        $allCompanies = DB::table('customers')->where('user_id',auth()->user()->id)->get();
+        $taxTypes = DB::table('taxtypes')->get();
+        $jsonData = DraftInvoice::findOrFail($id);
+        return view('invoices.editInvoice',compact('jsonData','allCompanies', 'codes', 'ActivityCodes', 'taxTypes', 'products', 'unittypes'));
+        // return $jsonData;
+    }
+
     // save draft invoice
 
     public function draft(Request $request)
@@ -903,6 +927,7 @@ class manageDoucumentController extends Controller
         return redirect()->route('showDraft')->with('success', 'تم حفظ المسودة بنجاح ');
 
     }
+
 
     // show all drafts of invoices
 

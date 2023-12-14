@@ -41,7 +41,8 @@ Route::get('customer/name', [CustomerController::class, 'showCustomerName'])->mi
 Route::post('customer/store', [CustomerController::class, 'AdminAddCustomer'])->middleware('authkey');
 Route::post('admin/store/details', [DetailsController::class, 'adminStore'])->middleware('authkey');
 Route::post('admin/store/invoice', [invoiceController::class, 'adminStoreInvoice'])->middleware('authkey');
+Route::get('admin/show/invoice/{id}', [invoiceController::class, 'showDraftByIdForAdmins'])->middleware('authkey');
 Route::delete('user/delete/{id}', [UserController::class, 'destroy'])->middleware('authkey');
 Route::get('invoice/user/{id}', [invoiceController::class, 'adminIndex'])->middleware('authkey');
 Route::get('allusers', [UserController::class, 'allUsersForAdmin'])->middleware('authkey');
-Route::put('/updateuser/{id}', [UserController::class, 'editUserData']);
+Route::put('/updateuser/{id}', [UserController::class, 'editUserData'])->middleware('authkey');
