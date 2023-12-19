@@ -114,6 +114,13 @@
                                                         <td>
                                                             <a href="{{ route('showDraftDetails', $draft->id) }}"
                                                                 class="btn btn-sm btn-secondary radius-2">@lang('site.View details')</a>
+                                                            @if ($draft->inv_uuid == null)
+                                                                <a href="{{ route('editinvoice', $draft->id) }}"
+                                                                    class="btn btn-sm btn-info radius-2">@lang('site.Edit Invoice')</a>
+                                                            @else
+                                                                <a  class="btn btn-sm btn-info radius-2" style="opacity: 0.5;cursor: text;"
+                                                                    disabled>@lang('site.Edit Invoice')</a>
+                                                            @endif
                                                         </td>
 
                                                         {{-- <form action="{{ route('sendDraftData',$draft->id) }}" method="post">
@@ -261,7 +268,8 @@
                                         {{ $ActivityCodes }}
                                     </h5>
                                 </div>
-                                <div class="widgets-icons bg-gradient-Ohhappiness text-white"><i class='bx bx-barcode'></i>
+                                <div class="widgets-icons bg-gradient-Ohhappiness text-white"><i
+                                        class='bx bx-barcode'></i>
                                 </div>
                             </div>
                         </div>

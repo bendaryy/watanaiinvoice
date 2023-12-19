@@ -334,6 +334,7 @@ return [
     'Activity Code Added' => "Activity Code Added successfully",
     'Activity Code Deleted' => "Activity Code Deleted successfully",
     'Sure To Delete' => "Are You Sure To Delete?",
+     "Edit Invoice"=>'Edit Invoice',
     "" => "",
     "" => "",
 

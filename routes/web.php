@@ -122,6 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 // send invoice
     Route::post('storeInvoice', [manageDoucumentController::class, 'invoice'])->name('storeInvoice')->middleware('auth');
+    Route::post('updateinvoice/{id}', [manageDoucumentController::class, 'updateInvoice'])->name('updateInvoice')->middleware('auth');
     Route::get('editinvoice/{id}',[manageDoucumentController::class, 'editInvoice'])->name('editinvoice')->middleware('auth');
     Route::post('storeInvoiceDollar', [manageDoucumentController::class, 'invoiceDollar'])->name('storeInvoiceDollar')->middleware('auth');
 

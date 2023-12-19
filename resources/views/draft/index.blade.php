@@ -38,9 +38,9 @@
                                 <th>@lang('site.customer_name')</th>
                                 <th>@lang('site.dateTimeIssued')</th>
                                 <th>@lang('site.Total')</th>
-                                <th>@lang('site.control')</th>
+                                {{-- <th>@lang('site.control')</th> --}}
                                 <th>@lang('site.invoice status')</th>
-                                <th>@lang('site.Delete')</th>
+                                <th>@lang('site.control')</th>
                         </thead>
                         <tbody>
 
@@ -57,10 +57,7 @@
                                     <td>{{ Carbon\Carbon::parse($draft['jsondata']['dateTimeIssued'])->format('d-m-Y') }}
                                     </td>
                                     <td>{{ $draft['jsondata']['totalAmount'] }}</td>
-                                    <td>
-                                        <a href="{{ route('showDraftDetails', $draft->id) }}"
-                                            class="btn btn-secondary">@lang('site.View details')</a>
-                                    </td>
+
 
                                     {{-- <form action="{{ route('sendDraftData',$draft->id) }}" method="post">
                                             @csrf
@@ -68,15 +65,31 @@
                                             <button class="btn btn-success">ارسال</button>
                                         </form> --}}
                                     @if ($draft->inv_uuid != null)
-                                        <td style="background-color: #28A745;color:white">@lang('site.sent')</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-success radius-2" style="width: 80px;cursor: text;">
+                                                @lang('site.sent')</a>
+                                        </td>
                                     @else
-                                        <td style="background-color: #FFC107;">@lang('site.Not sent')</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-warning radius-2" style="width: 80px;cursor: text;">
+                                                @lang('site.Not sent')</a>
+                                        </td>
                                     @endif
                                     <td>
-                                        <form action="{{ route('deleteDraft', $draft->id) }}" method="post">
+                                        <a href="{{ route('showDraftDetails', $draft->id) }}"
+                                            class="btn btn-sm btn-secondary radius-2">@lang('site.View details')</a>
+                                        @if ($draft->inv_uuid == null)
+                                            <a href="{{ route('editinvoice', $draft->id) }}"
+                                                class="btn btn-sm btn-info radius-2">@lang('site.Edit Invoice')</a>
+                                        @else
+                                            <a class="btn btn-sm btn-info radius-2" style="opacity: 0.5;cursor: text;"
+                                                disabled>@lang('site.Edit Invoice')</a>
+                                        @endif
+                                        <form style="display: inline" action="{{ route('deleteDraft', $draft->id) }}"
+                                            method="post">
                                             @method('delete')
                                             @csrf
-                                            <button class="btn btn-danger"
+                                            <button class="btn btn-sm btn-danger radius-2"
                                                 onclick="return confirm('هل أنت متأكد من مسح الفاتورة؟');">@lang('site.Delete invoice')</button>
                                         </form>
                                     </td>

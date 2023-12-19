@@ -412,6 +412,7 @@ return [
     'Activity Codes' => 'اكواد النشاط',
     'Activity Code Added' => 'تم إضافة كود النشاط بنجاح',
     'Activity Code Deleted' => 'تم مسح كود النشاط بنجاح',
-    'Sure To Delete' => 'هل انت متأكد من المسح'
+    'Sure To Delete' => 'هل انت متأكد من المسح',
+    "Edit Invoice"=>'تعديـل الفاتورة'
 
 ];
