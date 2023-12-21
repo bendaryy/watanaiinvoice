@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function allUsersForAdmin()
     {
-        $users = User::all();
+        $users = User::latest()->get();
         return $users->load('details');
     }
     public function createUser(Request $request)
