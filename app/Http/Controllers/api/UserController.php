@@ -49,7 +49,7 @@ class UserController extends Controller
                 ]);
 
                 // Create details record for the user
-                $user->details()->create([
+               $details =  $user->details()->create([
                     'id' => $user->id,
                     "company_name" => $request->company_name,
                     'industry' => $request->industry,
@@ -68,6 +68,7 @@ class UserController extends Controller
                     'status' => true,
                     'message' => 'User Created Successfully',
                     'token' => $user->createToken("API_TOKEN")->plainTextToken,
+                    'details' => $details,
                 ], 200);
             });
         } catch (\Throwable $th) {
