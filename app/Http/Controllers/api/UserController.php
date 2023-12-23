@@ -60,6 +60,7 @@ class UserController extends Controller
                     "regionCity" => $request->regionCity,
                     "buildingNumber" => $request->buildingNumber,
                     "street" => $request->street,
+                    'issuerType'=>"B"
                     // Add other details fields here
                 ]);
 
