@@ -50,6 +50,15 @@ class UserController extends Controller
                 // Create details record for the user
                 $user->details()->create([
                     'id' => $user->id,
+                    "company_name" => $request->company_name,
+                    'industry'=>$request->industry,
+                    "client_id"=>$request->client_id,
+                    "client_secret"=>$request->client_secret,
+                    "company_id"=>$request->company_id,
+                    "governate"=>$request->governate,
+                    "regionCity"=>$request->regionCity,
+                    "buildingNumber"=>$request->buildingNumber,
+                    "street"=>$request->street,
                     // Add other details fields here
                 ]);
 
