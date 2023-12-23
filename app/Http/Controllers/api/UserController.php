@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -20,37 +21,44 @@ class UserController extends Controller
     public function createUser(Request $request)
     {
         try {
-            //Validated
-            $validateUser = Validator::make($request->all(),
-                [
+            return DB::transaction(function () use ($request) {
+                // Validated
+                $validateUser = Validator::make($request->all(), [
                     'name' => 'required',
                     'email' => 'required|email|unique:users,email',
                     'phone' => 'required|unique:users,phone',
                     'password' => 'required',
                 ]);
 
-            if ($validateUser->fails()) {
+                if ($validateUser->fails()) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Validation error',
+                        'errors' => $validateUser->errors(),
+                    ], 401);
+                }
+
+                // Create user
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'phone' => $request->phone,
+                    'preferred_lang' => $request->preferred_lang,
+                ]);
+
+                // Create details record for the user
+                $user->details()->create([
+                    'id' => $user->id,
+                    // Add other details fields here
+                ]);
+
                 return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors(),
-                ], 401);
-            }
-
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                "phone" => $request->phone,
-                "preferred_lang" => $request->preferred_lang,
-            ]);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'User Created Successfully',
-                'token' => $user->createToken("API_TOKEN")->plainTextToken,
-            ], 200);
-
+                    'status' => true,
+                    'message' => 'User Created Successfully',
+                    'token' => $user->createToken("API_TOKEN")->plainTextToken,
+                ], 200);
+            });
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -62,11 +70,13 @@ class UserController extends Controller
     public function loginUser(Request $request)
     {
         try {
-            $validateUser = Validator::make($request->all(),
+            $validateUser = Validator::make(
+                $request->all(),
                 [
                     'email' => 'required|email',
                     'password' => 'required',
-                ]);
+                ]
+            );
 
             if ($validateUser->fails()) {
                 return response()->json([
@@ -90,14 +100,12 @@ class UserController extends Controller
                 'message' => 'User Logged In Successfully',
                 'token' => $user->createToken("API_TOKEN")->plainTextToken,
             ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage(),
             ], 500);
         }
-
     }
     public function logout(Request $request)
     {
@@ -139,16 +147,14 @@ class UserController extends Controller
             $user->save();
         }
 
-// Update the user
+        // Update the user
 
         return response()->json(['message' => 'User updated successfully', 'user' => $user->load('details')]);
-
     }
     public function destroy($userId)
     {
         $user = User::find($userId);
         $user->delete();
         return ['message' => "User Deleted"];
-
     }
 }
