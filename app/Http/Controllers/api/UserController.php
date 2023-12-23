@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Details;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,14 +52,14 @@ class UserController extends Controller
                 $user->details()->create([
                     'id' => $user->id,
                     "company_name" => $request->company_name,
-                    'industry'=>$request->industry,
-                    "client_id"=>$request->client_id,
-                    "client_secret"=>$request->client_secret,
-                    "company_id"=>$request->company_id,
-                    "governate"=>$request->governate,
-                    "regionCity"=>$request->regionCity,
-                    "buildingNumber"=>$request->buildingNumber,
-                    "street"=>$request->street,
+                    'industry' => $request->industry,
+                    "client_id" => $request->client_id,
+                    "client_secret" => $request->client_secret,
+                    "company_id" => $request->company_id,
+                    "governate" => $request->governate,
+                    "regionCity" => $request->regionCity,
+                    "buildingNumber" => $request->buildingNumber,
+                    "street" => $request->street,
                     // Add other details fields here
                 ]);
 
@@ -134,31 +135,41 @@ class UserController extends Controller
     }
     public function editUserData(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        return DB::transaction(function () use ($request, $id) {
+            $user = User::findOrFail($id);
 
-        // Validate the request data
-        $rules = [
-            'email' => 'email|unique:users,email,' . $user->id,
-            'phone' => 'unique:users,phone,' . $user->id,
-            // Add more validation rules as needed
-        ];
-        try {
-            $request->validate($rules);
-        } catch (ValidationException $e) {
-            // If validation fails, return a custom error message
-            return response()->json(['error' => $e->validator->errors()->first()], 422);
-        }
-        $user->update($request->all());
+            // Validate the request data
+            $rules = [
+                'email' => 'email|unique:users,email,' . $user->id,
+                'phone' => 'unique:users,phone,' . $user->id,
+                // Add more validation rules as needed
+            ];
+            try {
+                $request->validate($rules);
+            } catch (ValidationException $e) {
+                // If validation fails, return a custom error message
+                return response()->json(['error' => $e->validator->errors()->first()], 422);
+            }
 
-        if ($request->filled('password')) {
-            // Hash the new password
-            $user->password = Hash::make($request->input('password'));
-            $user->save();
-        }
+            // Update the user
+            $user->update($request->all());
 
-        // Update the user
+            if ($request->filled('password')) {
+                // Hash the new password
+                $user->password = Hash::make($request->input('password'));
+                $user->save();
+            }
 
-        return response()->json(['message' => 'User updated successfully', 'user' => $user->load('details')]);
+            // Update or create details
+            $detailsData = $request->input('details', []);
+            $details = $user->details ?? new Details();
+            $details->fill($detailsData);
+            $user->details()->save($details);
+
+            // You can access the updated details using $user->details
+
+            return response()->json(['message' => 'User updated successfully', 'user' => $user->load('details')]);
+        });
     }
     public function destroy($userId)
     {
